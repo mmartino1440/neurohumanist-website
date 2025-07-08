@@ -72,34 +72,21 @@
             z-index: 0;
         }
         
-        /* ------------------------------------------------------------------
-        --- HOW TO CHANGE BACKGROUND IMAGES ---
-        1. Find an image you like and get its direct URL (see guide below).
-        2. Replace the placeholder URL inside the url('...') for the desired section.
-        3. For example, for the #home section, you would change:
-           background-image: url('YOUR_HOME_IMAGE_URL_HERE');
-        ------------------------------------------------------------------
-        */
-        
-        /* Home: The Antechamber */
+        /* --- Specific background images for each room --- */
         #home {
-            background-image: url('https://images.unsplash.com/photo-1529373954252-2c3c69450095?q=80&w=1887&auto=format&fit=crop');
+            background-image: url('https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=2070&auto=format&fit=crop');
         }
-        
-        /* Philosophy: Eastern Philosophy Theme */
-        #about {
-            background-image: url('https://images.unsplash.com/photo-1540205082-3551500d5257?q=80&w=1887&auto=format&fit=crop');
+        #about { /* Philosophy */
+            background-image: url('https://images.unsplash.com/photo-1598387993441-a364f854c3e1?q=80&w=1887&auto=format&fit=crop');
         }
-        /* Research: The Neuro Lab */
         #research {
             background-image: url('https://images.unsplash.com/photo-1620641788421-7a1c36226a5d?q=80&w=1972&auto=format&fit=crop');
         }
-        /* Bookshelf: The Library */
         #bookshelf {
             background-image: url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=2128&auto=format&fit=crop');
         }
-        #partnership {
-             background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop');
+        #partnership { /* AI Partnership */
+             background-image: url('https://images.unsplash.com/photo-1581092921462-63503b4d1747?q=80&w=2070&auto=format&fit=crop');
         }
         #horizons {
             background-image: url('https://images.unsplash.com/photo-1484199316358-d7acb93729f2?q=80&w=1932&auto=format&fit=crop');
@@ -112,6 +99,11 @@
         .page-content {
             position: relative;
             z-index: 1;
+        }
+        
+        /* Archive Button Style */
+        .archive-button {
+            transition: background-color 0.3s, color 0.3s;
         }
 
     </style>
@@ -163,19 +155,16 @@
                 <section class="mt-16">
                     <h2 class="text-2xl font-serif text-center text-white mb-8">Enter the Sanctum</h2>
                     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        <!-- Card: My Philosophy -->
                         <div class="card cursor-pointer" onclick="showPage('about')">
                             <div class="text-accent mb-4"><i class="fas fa-book-open-reader fa-2x"></i></div>
                             <h3 class="text-2xl font-serif font-bold text-white mb-2">My Philosophy</h3>
                             <p class="text-slate-400">Discover the principles guiding my interdisciplinary approach.</p>
                         </div>
-                        <!-- Card: Research -->
                         <div class="card cursor-pointer" onclick="showPage('research')">
                             <div class="text-accent mb-4"><i class="fas fa-microchip fa-2x"></i></div>
                             <h3 class="text-2xl font-serif font-bold text-white mb-2">Research</h3>
                             <p class="text-slate-400">Delve into my work in systems neuroscience and computational psychiatry.</p>
                         </div>
-                        <!-- Card: Bookshelf -->
                         <div class="card cursor-pointer" onclick="showPage('bookshelf')">
                             <div class="text-accent mb-4"><i class="fas fa-book fa-2x"></i></div>
                             <h3 class="text-2xl font-serif font-bold text-white mb-2">Bookshelf</h3>
@@ -215,8 +204,7 @@
                                 <p class="text-slate-300 leading-relaxed">As a basic systems neuroscientist in pre-clinical training, my primary work aims to understand how experiences of intense fear become sensitized in the brain. I investigate the <strong>whole-brain signature of fear sensitization</strong> at both <strong>regional and network scales</strong>. By combining cutting-edge neuroimaging techniques (like whole-brain c-Fos mapping with iDISCO and light sheet microscopy) with targeted <strong>chemogenetic manipulations</strong> in my behavioral paradigms, I seek to identify the distributed circuits that mediate the transition from adaptive fear to maladaptive, generalized anxiety.</p>
                             </div>
                             <div class="hidden md:block">
-                                 <!-- HOW TO CHANGE THIS IMAGE: Replace the link in the src="..." attribute with your direct image URL. -->
-                                 <img src="https://placehold.co/400x300/0f172a/38bdf8?text=Your+Image+Here" class="rounded-lg shadow-lg opacity-80" alt="Whole-brain c-Fos mapping showing fear sensitization">
+                                 <img src="https://i.imgur.com/ML0SNG1.jpeg" onerror="this.onerror=null;this.src='https://placehold.co/400x300/0f172a/38bdf8?text=Image+Not+Found';" class="rounded-lg shadow-lg opacity-80" alt="Whole-brain c-Fos mapping showing fear sensitization">
                             </div>
                         </div>
                     </div>
@@ -247,108 +235,106 @@
                 <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">The Bookshelf</h2>
                 <p class="max-w-3xl mx-auto text-center text-lg text-slate-300 leading-relaxed mb-10">The books that have shaped my thinking. Here are my reflections on texts that bridge science, philosophy, and the human condition.</p>
                 
-                <!-- Parenting & Development Section -->
-                <h3 class="text-2xl font-serif text-accent mb-6 border-b-2 border-slate-700 pb-2">Parenting & Development</h3>
+                <h3 class="text-2xl font-serif text-accent mb-6 border-b-2 border-slate-700 pb-2">Featured Readings</h3>
                 <div class="grid md:grid-cols-1 lg:grid-cols-2 gap-10 mb-12">
-                    <div class="card flex flex-col sm:flex-row gap-6">
-                        <img src="https://m.media-amazon.com/images/I/413PJikG5rL._SY445_SX342_ControlCacheEqualizer_.jpg" alt="Good Inside" class="w-full sm:w-1/3 h-auto rounded-md shadow-lg">
+                     <div class="card flex flex-col sm:flex-row gap-6">
+                        <img src="https://m.media-amazon.com/images/I/41JcZlkkFdL._SY445_SX342_ControlCacheEqualizer_.jpg" alt="Man's Search for Meaning" class="w-full sm:w-1/3 h-auto rounded-md shadow-lg">
                         <div class="flex-1">
-                            <h3 class="text-xl font-serif font-bold text-white">Good Inside</h3>
-                            <p class="text-slate-400 mb-3">by Dr. Becky Kennedy</p>
-                            <h4 class="font-semibold text-white mb-1">Key Takeaway:</h4>
-                            <p class="text-sm text-slate-400 mb-3">All children (and adults) are good inside. This principle reframes challenging behaviors not as malice, but as signals of unmet needs, empowering parents to connect with their children's underlying emotions before correcting behavior.</p>
-                            <h4 class="font-semibold text-white mb-1">Best For:</h4>
-                            <p class="text-sm text-slate-400">Parents seeking a compassionate, effective, and less shame-based approach to raising resilient and emotionally healthy children.</p>
+                            <h3 class="text-xl font-serif font-bold text-white">Man's Search for Meaning</h3>
+                            <p class="text-slate-400 mb-3">by Viktor Frankl</p>
+                            <p class="text-sm text-slate-400">A foundational text on resilience, responsibility, and finding purpose in suffering, based on Frankl's experiences in Nazi concentration camps.</p>
                         </div>
                     </div>
-                    <div class="card flex flex-col sm:flex-row gap-6">
-                        <img src="https://m.media-amazon.com/images/I/41HV0FCsYzL._SY445_SX342_ControlCacheEqualizer_.jpg" alt="Rest, Play, Grow" class="w-full sm:w-1/3 h-auto rounded-md shadow-lg">
-                        <div class="flex-1">
-                            <h3 class="text-xl font-serif font-bold text-white">Rest, Play, Grow</h3>
-                            <p class="text-slate-400 mb-3">by Deborah MacNamara</p>
-                            <h4 class="font-semibold text-white mb-1">Key Takeaway:</h4>
-                            <p class="text-sm text-slate-400 mb-3">True emotional maturation for children doesn't come from teaching, but from the safety of a strong attachment to caregivers. This relationship provides the essential ground for rest, free play, and the emergence of a resilient self.</p>
-                            <h4 class="font-semibold text-white mb-1">Best For:</h4>
-                            <p class="text-sm text-slate-400">Parents, educators, and therapists interested in an attachment-based developmental approach that explains the deep roots of a child's emotional world.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Behavior & Society Section -->
-                <h3 class="text-2xl font-serif text-accent mb-6 border-b-2 border-slate-700 pb-2">Behavior & Society</h3>
-                <div class="grid md:grid-cols-1 lg:grid-cols-2 gap-10 mb-12">
                      <div class="card flex flex-col sm:flex-row gap-6">
                         <img src="https://m.media-amazon.com/images/I/819ZWxY0d-L._SL1500_.jpg" alt="Behave" class="w-full sm:w-1/3 h-auto rounded-md shadow-lg">
                         <div class="flex-1">
                             <h3 class="text-xl font-serif font-bold text-white">Behave</h3>
                             <p class="text-slate-400 mb-3">by Robert Sapolsky</p>
-                            <h4 class="font-semibold text-white mb-1">Key Takeaway:</h4>
-                            <p class="text-sm text-slate-400 mb-3">To understand any human behavior, you must examine it at multiple timescales simultaneously: from the neurochemistry of the preceding second, to the hormonal environment of the preceding hours, to the evolutionary pressures of the preceding millennia.</p>
-                            <h4 class="font-semibold text-white mb-1">Best For:</h4>
-                            <p class="text-sm text-slate-400">Anyone seeking a deep, integrative, and profoundly scientific understanding of why humans do the things they do. A magnum opus of behavioral science.</p>
+                            <p class="text-sm text-slate-400">A magnum opus explaining why humans do the things they do by examining behavior at every timescale, from neurochemistry to evolutionary pressures.</p>
                         </div>
                     </div>
                      <div class="card flex flex-col sm:flex-row gap-6">
-                        <img src="https://m.media-amazon.com/images/I/81zANQFv-lL._SL1500_.jpg" alt="The Better Angels of Our Nature" class="w-full sm:w-1/3 h-auto rounded-md shadow-lg">
+                        <img src="https://m.media-amazon.com/images/I/51-bIbzo1mL._SY445_SX342_ControlCacheEqualizer_.jpg" alt="The Selfish Gene" class="w-full sm:w-1/3 h-auto rounded-md shadow-lg">
                         <div class="flex-1">
-                            <h3 class="text-xl font-serif font-bold text-white">The Better Angels of Our Nature</h3>
-                            <p class="text-slate-400 mb-3">by Steven Pinker</p>
-                            <h4 class="font-semibold text-white mb-1">Key Takeaway:</h4>
-                            <p class="text-sm text-slate-400 mb-3">Contrary to popular belief, violence has been in decline for centuries. Pinker marshals vast amounts of data to argue that forces like empathy, reason, commerce, and effective government have made the world more peaceful than ever.</p>
-                            <h4 class="font-semibold text-white mb-1">Best For:</h4>
-                            <p class="text-sm text-slate-400">Those interested in history, sociology, and data-driven arguments about human progress. A powerful counter-narrative to the idea of inevitable decline.</p>
+                            <h3 class="text-xl font-serif font-bold text-white">The Selfish Gene</h3>
+                            <p class="text-slate-400 mb-3">by Richard Dawkins</p>
+                            <p class="text-sm text-slate-400">A paradigm-shifting work arguing that the gene, not the organism, is the fundamental unit of selection, explaining altruism and cooperation as strategies for genetic propagation.</p>
+                        </div>
+                    </div>
+                    <div class="card flex flex-col sm:flex-row gap-6">
+                        <img src="https://m.media-amazon.com/images/I/413PJikG5rL._SY445_SX342_ControlCacheEqualizer_.jpg" alt="Good Inside" class="w-full sm:w-1/3 h-auto rounded-md shadow-lg">
+                        <div class="flex-1">
+                            <h3 class="text-xl font-serif font-bold text-white">Good Inside</h3>
+                            <p class="text-slate-400 mb-3">by Dr. Becky Kennedy</p>
+                            <p class="text-sm text-slate-400">A compassionate approach to parenting that reframes challenging behaviors as signals of unmet needs, empowering connection before correction.</p>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Knowledge & Work Section -->
-                <h3 class="text-2xl font-serif text-accent mb-6 border-b-2 border-slate-700 pb-2">Knowledge & Work</h3>
-                <div class="grid md:grid-cols-1 lg:grid-cols-2 gap-10">
-                    <div class="card flex flex-col sm:flex-row gap-6">
-                        <img src="https://m.media-amazon.com/images/I/51vmivI5KvL._SY445_SX342_ControlCacheEqualizer_.jpg" alt="Deep Work" class="w-full sm:w-1/3 h-auto rounded-md shadow-lg">
-                        <div class="flex-1">
-                            <h3 class="text-xl font-serif font-bold text-white">Deep Work</h3>
-                            <p class="text-slate-400 mb-3">by Cal Newport</p>
-                            <h4 class="font-semibold text-white mb-1">Key Takeaway:</h4>
-                            <p class="text-sm text-slate-400 mb-3">The ability to focus without distraction on a cognitively demanding task is a rare and valuable skill. Cultivating a "deep work" ethic is essential for producing high-quality work and finding fulfillment in a world full of shallow distractions.</p>
-                            <h4 class="font-semibold text-white mb-1">Best For:</h4>
-                            <p class="text-sm text-slate-400">Students, academics, and professionals in any field who feel their attention is constantly fragmented. A practical guide to reclaiming focus.</p>
-                        </div>
-                    </div>
-                    <div class="card flex flex-col sm:flex-row gap-6">
-                        <img src="https://m.media-amazon.com/images/I/41EyFFU-aQL._SY445_SX342_ControlCacheEqualizer_.jpg" alt="Mastery" class="w-full sm:w-1/3 h-auto rounded-md shadow-lg">
-                        <div class="flex-1">
-                            <h3 class="text-xl font-serif font-bold text-white">Mastery</h3>
-                            <p class="text-slate-400 mb-3">by Robert Greene</p>
-                            <h4 class="font-semibold text-white mb-1">Key Takeaway:</h4>
-                            <p class="text-sm text-slate-400 mb-3">True mastery is not about talent but about a long, dedicated apprenticeship. It requires finding your life's task, learning from masters, and pushing through creative plateaus with immense patience.</p>
-                            <h4 class="font-semibold text-white mb-1">Best For:</h4>
-                            <p class="text-sm text-slate-400">Those graduating high school or college. An essential roadmap for thinking about a long-term career and life path with purpose and intention.</p>
-                        </div>
-                    </div>
-                    <div class="card flex flex-col sm:flex-row gap-6">
-                        <img src="https://m.media-amazon.com/images/I/41yyoc2TzmL._SY445_SX342_ControlCacheEqualizer_.jpg" alt="The Man Who Mistook His Wife for a Hat" class="w-full sm:w-1/3 h-auto rounded-md shadow-lg">
-                        <div class="flex-1">
-                            <h3 class="text-xl font-serif font-bold text-white">The Man Who Mistook His Wife for a Hat</h3>
-                            <p class="text-slate-400 mb-3">by Oliver Sacks</p>
-                            <h4 class="font-semibold text-white mb-1">Key Takeaway:</h4>
-                            <p class="text-sm text-slate-400 mb-3">Neurological disorders reveal the brain's fragility but also its incredible capacity for adaptation. The "self" is not a single entity but a fragile construction of memory, perception, and narrative.</p>
-                            <h4 class="font-semibold text-white mb-1">Best For:</h4>
-                            <p class="text-sm text-slate-400">Aspiring clinicians and neuroscientists. It teaches the profound importance of seeing the patient's humanity beyond the diagnosis. A masterclass in compassionate, narrative medicine.</p>
-                        </div>
-                    </div>
-                    <div class="card flex flex-col sm:flex-row gap-6">
-                        <img src="https://m.media-amazon.com/images/I/513HOwhUVgL._SY445_SX342_ControlCacheEqualizer_.jpg" alt="Slow Productivity" class="w-full sm:w-1/3 h-auto rounded-md shadow-lg">
-                        <div class="flex-1">
-                            <h3 class="text-xl font-serif font-bold text-white">Slow Productivity</h3>
-                            <p class="text-slate-400 mb-3">by Cal Newport</p>
-                            <h4 class="font-semibold text-white mb-1">Key Takeaway:</h4>
-                            <p class="text-sm text-slate-400 mb-3">An antidote to modern burnout culture. The path to impactful work is not through frantic, high-volume effort, but by working at a natural pace, reducing overhead, and obsessing over quality.</p>
-                            <h4 class="font-semibold text-white mb-1">Best For:</h4>
-                            <p class="text-sm text-slate-400">Knowledge workers, academics, and creatives feeling overwhelmed by the pressure to be constantly "on" and productive. A philosophy for a more sustainable and meaningful career.</p>
-                        </div>
+
+                <div class="text-center my-12">
+                    <button id="toggle-archive-btn" class="archive-button bg-slate-700 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded-lg">
+                        Show Full Bookshelf Archive
+                    </button>
+                </div>
+
+                <div id="bookshelf-archive" class="hidden">
+                    <h3 class="text-2xl font-serif text-accent mb-6 border-b-2 border-slate-700 pb-2">Full Bookshelf Archive</h3>
+                    <div class="card">
+                        <table class="w-full text-left">
+                            <thead class="text-slate-400">
+                                <tr>
+                                    <th class="p-2">Title</th>
+                                    <th class="p-2">Author</th>
+                                    <th class="p-2 hidden sm:table-cell">Core Idea</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-700">
+                                <!-- Archive entries will be listed here -->
+                                <tr class="hover:bg-slate-800">
+                                    <td class="p-2 font-semibold text-white">Creating a Life</td>
+                                    <td class="p-2">by Ellen Goodman</td>
+                                    <td class="p-2 hidden sm:table-cell">A compassionate look at the messy reality of building a meaningful existence by balancing work, family, and self.</td>
+                                </tr>
+                                <tr class="hover:bg-slate-800">
+                                    <td class="p-2 font-semibold text-white">The Ancestor's Tale</td>
+                                    <td class="p-2">by Richard Dawkins & Yan Wong</td>
+                                    <td class="p-2 hidden sm:table-cell">A pilgrimage to the dawn of life, tracing human ancestry back through 40 "rendezvous points" with our evolutionary cousins.</td>
+                                </tr>
+                                <tr class="hover:bg-slate-800">
+                                    <td class="p-2 font-semibold text-white">The Better Angels of Our Nature</td>
+                                    <td class="p-2">by Steven Pinker</td>
+                                    <td class="p-2 hidden sm:table-cell">A data-driven argument that violence has been in decline for centuries due to forces like empathy, reason, and government.</td>
+                                </tr>
+                                <tr class="hover:bg-slate-800">
+                                    <td class="p-2 font-semibold text-white">Rest, Play, Grow</td>
+                                    <td class="p-2">by Deborah MacNamara</td>
+                                    <td class="p-2 hidden sm:table-cell">An attachment-based approach explaining that true emotional maturation in children emerges from the safety of their bond with caregivers.</td>
+                                </tr>
+                                <tr class="hover:bg-slate-800">
+                                    <td class="p-2 font-semibold text-white">Deep Work</td>
+                                    <td class="p-2">by Cal Newport</td>
+                                    <td class="p-2 hidden sm:table-cell">Argues that the ability to focus without distraction on a cognitively demanding task is a rare and valuable skill in a distracted world.</td>
+                                </tr>
+                                <tr class="hover:bg-slate-800">
+                                    <td class="p-2 font-semibold text-white">Mastery</td>
+                                    <td class="p-2">by Robert Greene</td>
+                                    <td class="p-2 hidden sm:table-cell">Asserts that true mastery comes from a long, dedicated apprenticeship, not innate talent.</td>
+                                </tr>
+                                <tr class="hover:bg-slate-800">
+                                    <td class="p-2 font-semibold text-white">The Man Who Mistook His Wife for a Hat</td>
+                                    <td class="p-2">by Oliver Sacks</td>
+                                    <td class="p-2 hidden sm:table-cell">A masterclass in compassionate, narrative medicine, revealing the fragility and resilience of the self through neurological case studies.</td>
+                                </tr>
+                                <tr class="hover:bg-slate-800">
+                                    <td class="p-2 font-semibold text-white">Slow Productivity</td>
+                                    <td class="p-2">by Cal Newport</td>
+                                    <td class="p-2 hidden sm:table-cell">A philosophy for sustainable and meaningful work, rejecting frantic "pseudo-productivity" in favor of a natural pace and a focus on quality.</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
+
             </div>
         </div>
         
@@ -378,7 +364,6 @@
                  <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">Horizons: Exploring New Frontiers</h2>
                  <p class="max-w-3xl text-lg text-slate-400 leading-relaxed mb-8">Science advances when we look beyond established boundaries. These emerging fields represent exciting future directions for a truly integrated science of the mind.</p>
                  <div class="grid md:grid-cols-2 gap-8">
-                    <!-- Neuroaesthetics -->
                     <div class="card">
                         <div class="flex items-center mb-3">
                             <i class="fas fa-palette fa-2x text-rose-400 mr-4"></i>
@@ -386,7 +371,6 @@
                         </div>
                         <p class="text-slate-400">What are the neural underpinnings of beauty, art, and the sublime? This field investigates how our brains process aesthetic experiences, offering a bridge between art history, creativity, and circuit-level neuroscience.</p>
                     </div>
-                    <!-- Neurolaw -->
                     <div class="card">
                         <div class="flex items-center mb-3">
                             <i class="fas fa-scale-balanced fa-2x text-amber-400 mr-4"></i>
@@ -394,7 +378,6 @@
                         </div>
                         <p class="text-slate-400">How should our understanding of the brain impact the justice system? Neurolaw grapples with complex questions of free will, culpability, and memory, aiming to inform a more neurobiologically-grounded legal framework.</p>
                     </div>
-                    <!-- Contemplative Neuroscience -->
                     <div class="card">
                         <div class="flex items-center mb-3">
                             <i class="fas fa-om fa-2x text-sky-400 mr-4"></i>
@@ -402,7 +385,6 @@
                         </div>
                         <p class="text-slate-400">By studying the minds of expert meditators, we can map the neural basis of well-being, compassion, and attention. This field provides a powerful, proactive approach to understanding mental health, not just mental illness.</p>
                     </div>
-                    <!-- Neuroarchitecture -->
                     <div class="card">
                         <div class="flex items-center mb-3">
                             <i class="fas fa-city fa-2x text-emerald-400 mr-4"></i>
@@ -419,12 +401,18 @@
                 <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">Connect & Profiles</h2>
                 <p class="text-lg text-slate-400 mb-8">I welcome collaboration and discussion. You can find my work and connect with me through the following platforms.</p>
                 <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- USER: Add your actual links to the href="#" attributes -->
-                    <a href="#" target="_blank" class="card flex items-center space-x-4">
-                        <i class="fab fa-github fa-2x text-slate-300"></i>
+                    <a href="https://orcid.org/0000-0001-6002-5849" target="_blank" class="card flex items-center space-x-4">
+                        <img src="https://orcid.org/favicon.ico" alt="ORCID" class="w-8 h-8 filter grayscale brightness-200">
                         <div>
-                            <h3 class="font-bold text-lg text-white">GitHub</h3>
-                            <p class="text-sm text-slate-500">Code & Projects</p>
+                            <h3 class="font-bold text-lg text-white">ORCID</h3>
+                            <p class="text-sm text-slate-500">0000-0001-6002-5849</p>
+                        </div>
+                    </a>
+                    <a href="mailto:neuro.martino@gmail.com" target="_blank" class="card flex items-center space-x-4">
+                        <i class="fas fa-envelope fa-2x text-slate-300"></i>
+                        <div>
+                            <h3 class="font-bold text-lg text-white">Email</h3>
+                            <p class="text-sm text-slate-500">neuro.martino@gmail.com</p>
                         </div>
                     </a>
                     <a href="https://scholar.google.com/citations?user=5MRDDRYAAAAJ&hl=en" target="_blank" class="card flex items-center space-x-4">
@@ -435,17 +423,17 @@
                         </div>
                     </a>
                     <a href="#" target="_blank" class="card flex items-center space-x-4">
+                        <i class="fab fa-github fa-2x text-slate-300"></i>
+                        <div>
+                            <h3 class="font-bold text-lg text-white">GitHub</h3>
+                            <p class="text-sm text-slate-500">Code & Projects</p>
+                        </div>
+                    </a>
+                    <a href="#" target="_blank" class="card flex items-center space-x-4">
                         <i class="fab fa-linkedin fa-2x text-slate-300"></i>
                         <div>
                             <h3 class="font-bold text-lg text-white">LinkedIn</h3>
                             <p class="text-sm text-slate-500">Professional Network</p>
-                        </div>
-                    </a>
-                    <a href="#" target="_blank" class="card flex items-center space-x-4">
-                        <img src="https://orcid.org/favicon.ico" alt="ORCID" class="w-8 h-8 filter grayscale brightness-200">
-                        <div>
-                            <h3 class="font-bold text-lg text-white">ORCID</h3>
-                            <p class="text-sm text-slate-500">Digital Identifier</p>
                         </div>
                     </a>
                      <a href="#" target="_blank" class="card flex items-center space-x-4">
@@ -453,13 +441,6 @@
                         <div>
                             <h3 class="font-bold text-lg text-white">Twitter / X</h3>
                             <p class="text-sm text-slate-500">Thoughts & Updates</p>
-                        </div>
-                    </a>
-                    <a href="#" target="_blank" class="card flex items-center space-x-4">
-                        <i class="fas fa-envelope fa-2x text-slate-300"></i>
-                        <div>
-                            <h3 class="font-bold text-lg text-white">Email</h3>
-                            <p class="text-sm text-slate-500">Direct Contact</p>
                         </div>
                     </a>
                 </div>
@@ -478,63 +459,59 @@
     <script>
         const pages = document.querySelectorAll('.page');
         const navLinks = document.querySelectorAll('.nav-link');
-        const mobileNavLinks = document.querySelectorAll('#mobile-menu a');
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
+        const archiveBtn = document.getElementById('toggle-archive-btn');
+        const archive = document.getElementById('bookshelf-archive');
 
         function showPage(pageId, clickedLink = null, isMobile = false) {
-            // Hide all pages
             pages.forEach(page => {
                 page.style.display = 'none';
                 page.classList.remove('fade-in');
             });
 
-            // Show the target page
             const targetPage = document.getElementById(pageId);
             if (targetPage) {
                 targetPage.style.display = 'block';
-                // A slight delay to ensure the animation runs on page change
                 setTimeout(() => targetPage.classList.add('fade-in'), 10);
             }
 
-            // Determine which link to activate
             const linkSelector = `a[href="#${pageId}"]`;
-            
-            // Update active nav link for desktop
             navLinks.forEach(link => link.classList.remove('active'));
             const desktopLink = document.querySelector(`.hidden.md\\:flex ${linkSelector}`);
             if (desktopLink) desktopLink.classList.add('active');
 
-            // If on mobile, close the menu after clicking
             if (isMobile) {
                 mobileMenu.classList.add('hidden');
             }
             
-            // Update the URL hash
             if(history.pushState) {
                 history.pushState(null, null, '#' + pageId);
             } else {
                 window.location.hash = '#' + pageId;
             }
 
-            // Scroll to top of page content
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
         
-        // Mobile menu toggle
         mobileMenuButton.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
         });
+        
+        // Bookshelf archive toggle
+        if (archiveBtn) {
+            archiveBtn.addEventListener('click', () => {
+                const isHidden = archive.classList.toggle('hidden');
+                archiveBtn.textContent = isHidden ? 'Show Full Bookshelf Archive' : 'Hide Full Bookshelf Archive';
+            });
+        }
 
-        // Initial page load - handle hash or default to home
         document.addEventListener('DOMContentLoaded', () => {
-            // Hide all pages initially to prevent flash of unstyled content
             pages.forEach(page => page.style.display = 'none');
             const initialPageId = window.location.hash.substring(1) || 'home';
             showPage(initialPageId);
         });
         
-        // Handle browser back/forward navigation
         window.addEventListener('popstate', () => {
             const pageId = window.location.hash.substring(1) || 'home';
             showPage(pageId);
