@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Neuro-Humanist</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a; /* Even darker base: slate-900 */
+            color: #cbd5e1; /* slate-300 */
+        }
+        .font-serif {
+            font-family: 'Lora', serif;
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 4px;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #38bdf8; /* sky-400 */
+            border-bottom-color: #38bdf8;
+        }
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .card {
+            background-color: rgba(15, 23, 42, 0.85); /* slate-900 at 85% opacity */
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(51, 65, 85, 0.7); /* slate-700 at 70% opacity */
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #38bdf8; /* sky-400 */
+        }
+        .text-accent {
+            color: #38bdf8; /* sky-400 */
+        }
+        
+        /* --- Atmospheric Backgrounds for each "Room" --- */
+        .page {
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed; /* Parallax effect */
+            padding: 4rem 1.5rem;
+            margin: -2rem -1.5rem;
+            border-radius: 1rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* The overlay is applied via a pseudo-element to keep text sharp */
+        .page::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            background-color: rgba(30, 41, 59, 0.7); /* slate-800 at 70% opacity */
+            z-index: 0;
+        }
+        
+        /* ------------------------------------------------------------------
+        --- HOW TO CHANGE BACKGROUND IMAGES ---
+        1. Find an image you like and get its direct URL (see guide below).
+        2. Replace the placeholder URL inside the url('...') for the desired section.
+        3. For example, for the #home section, you would change:
+           background-image: url('YOUR_HOME_IMAGE_URL_HERE');
+        ------------------------------------------------------------------
+        */
+        
+        /* Home: The Antechamber */
+        #home {
+            background-image: url('https://images.unsplash.com/photo-1529373954252-2c3c69450095?q=80&w=1887&auto=format&fit=crop');
+        }
+        
+        /* Philosophy: Eastern Philosophy Theme */
+        #about {
+            background-image: url('https://images.unsplash.com/photo-1540205082-3551500d5257?q=80&w=1887&auto=format&fit=crop');
+        }
+        /* Research: The Neuro Lab */
+        #research {
+            background-image: url('https://images.unsplash.com/photo-1620641788421-7a1c36226a5d?q=80&w=1972&auto=format&fit=crop');
+        }
+        /* Bookshelf: The Library */
+        #bookshelf {
+            background-image: url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=2128&auto=format&fit=crop');
+        }
+        #partnership {
+             background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop');
+        }
+        #horizons {
+            background-image: url('https://images.unsplash.com/photo-1484199316358-d7acb93729f2?q=80&w=1932&auto=format&fit=crop');
+        }
+        #connect {
+            background-image: url('https://images.unsplash.com/photo-1535378917042-10a22c95931a?q=80&w=2048&auto=format&fit=crop');
+        }
+
+        /* Ensure content sits above the background and its overlay */
+        .page-content {
+            position: relative;
+            z-index: 1;
+        }
+
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigation -->
+    <header class="bg-slate-900/80 backdrop-blur-lg border-b border-slate-700/60 sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="text-2xl font-bold text-accent" onclick="showPage('home')">The Neuro-Humanist</a>
+            <div class="hidden md:flex items-center space-x-6 lg:space-x-8 text-slate-300">
+                <a href="#home" class="nav-link active" onclick="showPage('home', this)">Home</a>
+                <a href="#about" class="nav-link" onclick="showPage('about', this)">My Philosophy</a>
+                <a href="#research" class="nav-link" onclick="showPage('research', this)">Research</a>
+                <a href="#bookshelf" class="nav-link" onclick="showPage('bookshelf', this)">Bookshelf</a>
+                <a href="#partnership" class="nav-link" onclick="showPage('partnership', this)">AI Partnership</a>
+                <a href="#horizons" class="nav-link" onclick="showPage('horizons', this)">Horizons</a>
+                <a href="#connect" class="nav-link" onclick="showPage('connect', this)">Connect</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden focus:outline-none text-slate-300">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-700 bg-slate-900">
+            <a href="#home" class="block py-3 px-6 text-sm hover:bg-slate-800" onclick="showPage('home', this, true)">Home</a>
+            <a href="#about" class="block py-3 px-6 text-sm hover:bg-slate-800" onclick="showPage('about', this, true)">My Philosophy</a>
+            <a href="#research" class="block py-3 px-6 text-sm hover:bg-slate-800" onclick="showPage('research', this, true)">Research</a>
+            <a href="#bookshelf" class="block py-3 px-6 text-sm hover:bg-slate-800" onclick="showPage('bookshelf', this, true)">Bookshelf</a>
+            <a href="#partnership" class="block py-3 px-6 text-sm hover:bg-slate-800" onclick="showPage('partnership', this, true)">AI Partnership</a>
+            <a href="#horizons" class="block py-3 px-6 text-sm hover:bg-slate-800" onclick="showPage('horizons', this, true)">Horizons</a>
+            <a href="#connect" class="block py-3 px-6 text-sm hover:bg-slate-800" onclick="showPage('connect', this, true)">Connect</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-6 md:p-8">
+        <!-- Page Content Sections -->
+        <div id="home" class="page fade-in">
+            <div class="page-content">
+                <section class="text-center">
+                    <img src="https://wisconsinhumanities.org/wp-content/uploads/WiredBrain-768x833.png" alt="Profile Picture of Michael Martino" class="w-36 h-36 md:w-40 md:h-40 rounded-full object-cover mx-auto mb-6 border-4 border-slate-700 shadow-lg">
+                    <h1 class="text-4xl md:text-5xl font-bold font-serif text-white mb-2">Michael Martino</h1>
+                    <p class="text-xl text-accent font-medium mb-6">Systems Neuroscientist | Theorist | Neuro-humanist</p>
+                    <p class="max-w-3xl mx-auto text-lg text-slate-300 leading-relaxed">
+                        I believe that to understand the mind, we must build bridges. My work connects the quantitative rigor of computational neuroscience with the rich, contextual tapestry of the humanities. Here, I explore how mathematical models of the brain can be informed by history, literature, and philosophy to move us toward a more complete science of human experience.
+                    </p>
+                </section>
+                
+                <section class="mt-16">
+                    <h2 class="text-2xl font-serif text-center text-white mb-8">Enter the Sanctum</h2>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Card: My Philosophy -->
+                        <div class="card cursor-pointer" onclick="showPage('about')">
+                            <div class="text-accent mb-4"><i class="fas fa-book-open-reader fa-2x"></i></div>
+                            <h3 class="text-2xl font-serif font-bold text-white mb-2">My Philosophy</h3>
+                            <p class="text-slate-400">Discover the principles guiding my interdisciplinary approach.</p>
+                        </div>
+                        <!-- Card: Research -->
+                        <div class="card cursor-pointer" onclick="showPage('research')">
+                            <div class="text-accent mb-4"><i class="fas fa-microchip fa-2x"></i></div>
+                            <h3 class="text-2xl font-serif font-bold text-white mb-2">Research</h3>
+                            <p class="text-slate-400">Delve into my work in systems neuroscience and computational psychiatry.</p>
+                        </div>
+                        <!-- Card: Bookshelf -->
+                        <div class="card cursor-pointer" onclick="showPage('bookshelf')">
+                            <div class="text-accent mb-4"><i class="fas fa-book fa-2x"></i></div>
+                            <h3 class="text-2xl font-serif font-bold text-white mb-2">Bookshelf</h3>
+                            <p class="text-slate-400">Explore the books that have shaped my thinking and research.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <div id="about" class="page hidden fade-in">
+            <div class="page-content">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold mb-8 text-white">My Philosophy: An Unfolding Journey</h2>
+                <div class="card">
+                    <div class="grid lg:grid-cols-3 gap-8 items-center">
+                        <div class="lg:col-span-2 text-lg text-slate-300 leading-relaxed space-y-6">
+                            <p>My path to neuroscience wasn't a straight line, but a journey fueled by an inquisitive nature I didn't always recognize in myself. It was through the encouragement of teachers over many years that I began to see the potential of my own curiosity. The true catalyst arrived in my final undergraduate semester, in a class on the biology of cardiovascular disease. Learning the intricate details of cellular signaling pathways struck me with a profound sense of awe—that we could understand life at this resolution was a revelation.</p>
+                            <p>This newfound desire to explore biological mechanisms led me to a master's degree, where I became enthralled with every facet of science. I devoured philosophy, the biographies of great thinkers, and even mathematics—a subject I had historically abhorred. As I entered medical school, an itch to explore the brain persisted. When I was finally exposed to the nervous system, I knew I had to commit. It was a risk; I could have fallen back on safer projects in exercise metabolism, but I couldn't pass up the chance to discover if neuroscience and psychiatry were where I could finally unite my eclectic interests in pursuit of a higher objective.</p>
+                            <p>This website is a reflection of that synthesis: a commitment to a science that is not isolated, but is in constant, dynamic conversation with the full breadth of human knowledge.</p>
+                        </div>
+                        <div class="hidden lg:block">
+                            <img src="https://images.unsplash.com/photo-1605295199366-d55c75345332?q=80&w=1887&auto=format&fit=crop" class="rounded-lg shadow-lg opacity-80 object-cover h-full" alt="Statue of a thinker in a contemplative pose">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="research" class="page hidden fade-in">
+            <div class="page-content">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">Research Focus</h2>
+                <div class="space-y-8">
+                    <div class="card">
+                        <div class="grid md:grid-cols-3 gap-8 items-center">
+                            <div class="md:col-span-2">
+                                <h3 class="text-xl font-serif font-bold text-accent mb-3">Core Research: Systems Neuroscience of Fear & Anxiety</h3>
+                                <p class="text-slate-300 leading-relaxed">As a basic systems neuroscientist in pre-clinical training, my primary work aims to understand how experiences of intense fear become sensitized in the brain. I investigate the <strong>whole-brain signature of fear sensitization</strong> at both <strong>regional and network scales</strong>. By combining cutting-edge neuroimaging techniques (like whole-brain c-Fos mapping with iDISCO and light sheet microscopy) with targeted <strong>chemogenetic manipulations</strong> in my behavioral paradigms, I seek to identify the distributed circuits that mediate the transition from adaptive fear to maladaptive, generalized anxiety.</p>
+                            </div>
+                            <div class="hidden md:block">
+                                 <!-- HOW TO CHANGE THIS IMAGE: Replace the link in the src="..." attribute with your direct image URL. -->
+                                 <img src="https://placehold.co/400x300/0f172a/38bdf8?text=Your+Image+Here" class="rounded-lg shadow-lg opacity-80" alt="Whole-brain c-Fos mapping showing fear sensitization">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3 class="text-xl font-serif font-bold text-accent mb-3">Featured Publications</h3>
+                        <ul class="list-disc list-inside space-y-4 text-slate-300">
+                            <li>Paniccia, J. E., Vollmer, K. M., Green, L. M., Grant, R. I., Winston, K. T., Buchmaier, S., ... & Martino, M. (2024). Restoration of a paraventricular thalamo-accumbal behavioral suppression circuit prevents reinstatement of heroin seeking. <em>Neuron</em>.</li>
+                            <li>Eyre, H. A., Ayadi, P., Swieboda, M., Berk, M., Ibanez, A., ME, C., ... & Martino, M. (2024). The brain economy: Advancing brain science to better understand the modern economy. <em>The Malaysian journal of medical sciences: MJMS</em>.</li>
+                            <li>Martino, M. M., Etnier, L. E., & Etnier, J. L. (2017). Effects of acute aerobic exercise on cognition and neurophysiological arousal. <em>Psychology of Sport and Exercise</em>.</li>
+                            <li>More can be found on my <a href="https://scholar.google.com/citations?user=5MRDDRYAAAAJ&hl=en" target="_blank" class="text-accent hover:underline font-semibold">Google Scholar profile</a>.</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3 class="text-xl font-serif font-bold text-accent mb-3">Public Scholarship & Essays</h3>
+                         <p class="text-slate-300 leading-relaxed mb-4">I believe in translating complex scientific ideas for a broader audience. My writing explores the intersection of neuroscience, wellness, and global policy.</p>
+                        <ul class="list-disc list-inside space-y-3 text-slate-300">
+                            <li><a href="https://www.globalstrategyreview.com/wellness" target="_blank" class="link-hover">The Neurobiology of Wellness</a></li>
+                            <li><a href="https://www.globalstrategyreview.com/unga-brain-days-summary" target="_blank" class="link-hover">A Summary of the UNGA Science Summit "Brain Days"</a></li>
+                            <li><a href="https://gradstudies.musc.edu/about/blog/2024/02/smart-quit-aid" target="_blank" class="link-hover">Project Summary: The SMART Quit Aid for Smoking Cessation</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="bookshelf" class="page hidden fade-in">
+            <div class="page-content">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">The Bookshelf</h2>
+                <p class="max-w-3xl mx-auto text-center text-lg text-slate-300 leading-relaxed mb-10">The books that have shaped my thinking. Here are my reflections on texts that bridge science, philosophy, and the human condition.</p>
+                
+                <!-- Parenting & Development Section -->
+                <h3 class="text-2xl font-serif text-accent mb-6 border-b-2 border-slate-700 pb-2">Parenting & Development</h3>
+                <div class="grid md:grid-cols-1 lg:grid-cols-2 gap-10 mb-12">
+                    <div class="card flex flex-col sm:flex-row gap-6">
+                        <img src="https://m.media-amazon.com/images/I/413PJikG5rL._SY445_SX342_ControlCacheEqualizer_.jpg" alt="Good Inside" class="w-full sm:w-1/3 h-auto rounded-md shadow-lg">
+                        <div class="flex-1">
+                            <h3 class="text-xl font-serif font-bold text-white">Good Inside</h3>
+                            <p class="text-slate-400 mb-3">by Dr. Becky Kennedy</p>
+                            <h4 class="font-semibold text-white mb-1">Key Takeaway:</h4>
+                            <p class="text-sm text-slate-400 mb-3">All children (and adults) are good inside. This principle reframes challenging behaviors not as malice, but as signals of unmet needs, empowering parents to connect with their children's underlying emotions before correcting behavior.</p>
+                            <h4 class="font-semibold text-white mb-1">Best For:</h4>
+                            <p class="text-sm text-slate-400">Parents seeking a compassionate, effective, and less shame-based approach to raising resilient and emotionally healthy children.</p>
+                        </div>
+                    </div>
+                    <div class="card flex flex-col sm:flex-row gap-6">
+                        <img src="https://m.media-amazon.com/images/I/41HV0FCsYzL._SY445_SX342_ControlCacheEqualizer_.jpg" alt="Rest, Play, Grow" class="w-full sm:w-1/3 h-auto rounded-md shadow-lg">
+                        <div class="flex-1">
+                            <h3 class="text-xl font-serif font-bold text-white">Rest, Play, Grow</h3>
+                            <p class="text-slate-400 mb-3">by Deborah MacNamara</p>
+                            <h4 class="font-semibold text-white mb-1">Key Takeaway:</h4>
+                            <p class="text-sm text-slate-400 mb-3">True emotional maturation for children doesn't come from teaching, but from the safety of a strong attachment to caregivers. This relationship provides the essential ground for rest, free play, and the emergence of a resilient self.</p>
+                            <h4 class="font-semibold text-white mb-1">Best For:</h4>
+                            <p class="text-sm text-slate-400">Parents, educators, and therapists interested in an attachment-based developmental approach that explains the deep roots of a child's emotional world.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Behavior & Society Section -->
+                <h3 class="text-2xl font-serif text-accent mb-6 border-b-2 border-slate-700 pb-2">Behavior & Society</h3>
+                <div class="grid md:grid-cols-1 lg:grid-cols-2 gap-10 mb-12">
+                     <div class="card flex flex-col sm:flex-row gap-6">
+                        <img src="https://m.media-amazon.com/images/I/819ZWxY0d-L._SL1500_.jpg" alt="Behave" class="w-full sm:w-1/3 h-auto rounded-md shadow-lg">
+                        <div class="flex-1">
+                            <h3 class="text-xl font-serif font-bold text-white">Behave</h3>
+                            <p class="text-slate-400 mb-3">by Robert Sapolsky</p>
+                            <h4 class="font-semibold text-white mb-1">Key Takeaway:</h4>
+                            <p class="text-sm text-slate-400 mb-3">To understand any human behavior, you must examine it at multiple timescales simultaneously: from the neurochemistry of the preceding second, to the hormonal environment of the preceding hours, to the evolutionary pressures of the preceding millennia.</p>
+                            <h4 class="font-semibold text-white mb-1">Best For:</h4>
+                            <p class="text-sm text-slate-400">Anyone seeking a deep, integrative, and profoundly scientific understanding of why humans do the things they do. A magnum opus of behavioral science.</p>
+                        </div>
+                    </div>
+                     <div class="card flex flex-col sm:flex-row gap-6">
+                        <img src="https://m.media-amazon.com/images/I/81zANQFv-lL._SL1500_.jpg" alt="The Better Angels of Our Nature" class="w-full sm:w-1/3 h-auto rounded-md shadow-lg">
+                        <div class="flex-1">
+                            <h3 class="text-xl font-serif font-bold text-white">The Better Angels of Our Nature</h3>
+                            <p class="text-slate-400 mb-3">by Steven Pinker</p>
+                            <h4 class="font-semibold text-white mb-1">Key Takeaway:</h4>
+                            <p class="text-sm text-slate-400 mb-3">Contrary to popular belief, violence has been in decline for centuries. Pinker marshals vast amounts of data to argue that forces like empathy, reason, commerce, and effective government have made the world more peaceful than ever.</p>
+                            <h4 class="font-semibold text-white mb-1">Best For:</h4>
+                            <p class="text-sm text-slate-400">Those interested in history, sociology, and data-driven arguments about human progress. A powerful counter-narrative to the idea of inevitable decline.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Knowledge & Work Section -->
+                <h3 class="text-2xl font-serif text-accent mb-6 border-b-2 border-slate-700 pb-2">Knowledge & Work</h3>
+                <div class="grid md:grid-cols-1 lg:grid-cols-2 gap-10">
+                    <div class="card flex flex-col sm:flex-row gap-6">
+                        <img src="https://m.media-amazon.com/images/I/51vmivI5KvL._SY445_SX342_ControlCacheEqualizer_.jpg" alt="Deep Work" class="w-full sm:w-1/3 h-auto rounded-md shadow-lg">
+                        <div class="flex-1">
+                            <h3 class="text-xl font-serif font-bold text-white">Deep Work</h3>
+                            <p class="text-slate-400 mb-3">by Cal Newport</p>
+                            <h4 class="font-semibold text-white mb-1">Key Takeaway:</h4>
+                            <p class="text-sm text-slate-400 mb-3">The ability to focus without distraction on a cognitively demanding task is a rare and valuable skill. Cultivating a "deep work" ethic is essential for producing high-quality work and finding fulfillment in a world full of shallow distractions.</p>
+                            <h4 class="font-semibold text-white mb-1">Best For:</h4>
+                            <p class="text-sm text-slate-400">Students, academics, and professionals in any field who feel their attention is constantly fragmented. A practical guide to reclaiming focus.</p>
+                        </div>
+                    </div>
+                    <div class="card flex flex-col sm:flex-row gap-6">
+                        <img src="https://m.media-amazon.com/images/I/41EyFFU-aQL._SY445_SX342_ControlCacheEqualizer_.jpg" alt="Mastery" class="w-full sm:w-1/3 h-auto rounded-md shadow-lg">
+                        <div class="flex-1">
+                            <h3 class="text-xl font-serif font-bold text-white">Mastery</h3>
+                            <p class="text-slate-400 mb-3">by Robert Greene</p>
+                            <h4 class="font-semibold text-white mb-1">Key Takeaway:</h4>
+                            <p class="text-sm text-slate-400 mb-3">True mastery is not about talent but about a long, dedicated apprenticeship. It requires finding your life's task, learning from masters, and pushing through creative plateaus with immense patience.</p>
+                            <h4 class="font-semibold text-white mb-1">Best For:</h4>
+                            <p class="text-sm text-slate-400">Those graduating high school or college. An essential roadmap for thinking about a long-term career and life path with purpose and intention.</p>
+                        </div>
+                    </div>
+                    <div class="card flex flex-col sm:flex-row gap-6">
+                        <img src="https://m.media-amazon.com/images/I/41yyoc2TzmL._SY445_SX342_ControlCacheEqualizer_.jpg" alt="The Man Who Mistook His Wife for a Hat" class="w-full sm:w-1/3 h-auto rounded-md shadow-lg">
+                        <div class="flex-1">
+                            <h3 class="text-xl font-serif font-bold text-white">The Man Who Mistook His Wife for a Hat</h3>
+                            <p class="text-slate-400 mb-3">by Oliver Sacks</p>
+                            <h4 class="font-semibold text-white mb-1">Key Takeaway:</h4>
+                            <p class="text-sm text-slate-400 mb-3">Neurological disorders reveal the brain's fragility but also its incredible capacity for adaptation. The "self" is not a single entity but a fragile construction of memory, perception, and narrative.</p>
+                            <h4 class="font-semibold text-white mb-1">Best For:</h4>
+                            <p class="text-sm text-slate-400">Aspiring clinicians and neuroscientists. It teaches the profound importance of seeing the patient's humanity beyond the diagnosis. A masterclass in compassionate, narrative medicine.</p>
+                        </div>
+                    </div>
+                    <div class="card flex flex-col sm:flex-row gap-6">
+                        <img src="https://m.media-amazon.com/images/I/513HOwhUVgL._SY445_SX342_ControlCacheEqualizer_.jpg" alt="Slow Productivity" class="w-full sm:w-1/3 h-auto rounded-md shadow-lg">
+                        <div class="flex-1">
+                            <h3 class="text-xl font-serif font-bold text-white">Slow Productivity</h3>
+                            <p class="text-slate-400 mb-3">by Cal Newport</p>
+                            <h4 class="font-semibold text-white mb-1">Key Takeaway:</h4>
+                            <p class="text-sm text-slate-400 mb-3">An antidote to modern burnout culture. The path to impactful work is not through frantic, high-volume effort, but by working at a natural pace, reducing overhead, and obsessing over quality.</p>
+                            <h4 class="font-semibold text-white mb-1">Best For:</h4>
+                            <p class="text-sm text-slate-400">Knowledge workers, academics, and creatives feeling overwhelmed by the pressure to be constantly "on" and productive. A philosophy for a more sustainable and meaningful career.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="partnership" class="page hidden fade-in">
+            <div class="page-content">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">AI as a Research Partner</h2>
+                <p class="max-w-3xl text-lg text-slate-400 leading-relaxed mb-8">Several colleagues have expressed interest in how I use AI to develop ideas and visualizations. My approach is rooted in partnership: I see AI not as a mere tool, but as a collaborator in the scientific and creative process. Here’s a look into our workflow.</p>
+                <div class="space-y-8">
+                    <div class="card">
+                        <h3 class="text-xl font-serif font-bold text-accent mb-3">Ideation & Synthesis</h3>
+                        <p class="text-slate-300 leading-relaxed">The greatest challenge for a neuro-humanist is connecting disparate fields. I use AI as a Socratic partner to bridge these gaps. By posing high-level questions, I can rapidly explore potential links between, for instance, 19th-century literature on ennui and modern neurobiological models of the default mode network. The AI acts as an intellectual catalyst, helping to synthesize vast amounts of information and suggest novel lines of inquiry that I can then pursue with academic rigor.</p>
+                    </div>
+                    <div class="card">
+                        <h3 class="text-xl font-serif font-bold text-accent mb-3">Rapid Prototyping & Visualization</h3>
+                        <p class="text-slate-300 leading-relaxed">Compelling ideas deserve compelling presentation. I co-develop visualizations, user interfaces, and even entire websites (like this one) with AI. I provide the architectural vision, the scientific content, and the aesthetic direction, while the AI handles the rapid generation of code. This iterative dialogue allows me to translate complex concepts into accessible, interactive formats in a fraction of the time it would take alone.</p>
+                    </div>
+                    <div class="card">
+                        <h3 class="text-xl font-serif font-bold text-accent mb-3">An Open Philosophy</h3>
+                        <p class="text-slate-300 leading-relaxed">I am committed to the principles of open science. I believe that knowledge, including the methods used to generate it, should not be gatekept. This section, and the insights within it, will always be freely accessible. For those who are interested in supporting this work and getting a deeper, behind-the-scenes look at my projects, I may explore community-funding models like Patreon in the future. The goal is to build a community, not a paywall.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="horizons" class="page hidden fade-in">
+            <div class="page-content">
+                 <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">Horizons: Exploring New Frontiers</h2>
+                 <p class="max-w-3xl text-lg text-slate-400 leading-relaxed mb-8">Science advances when we look beyond established boundaries. These emerging fields represent exciting future directions for a truly integrated science of the mind.</p>
+                 <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Neuroaesthetics -->
+                    <div class="card">
+                        <div class="flex items-center mb-3">
+                            <i class="fas fa-palette fa-2x text-rose-400 mr-4"></i>
+                            <h3 class="text-2xl font-serif font-bold text-white">Neuroaesthetics</h3>
+                        </div>
+                        <p class="text-slate-400">What are the neural underpinnings of beauty, art, and the sublime? This field investigates how our brains process aesthetic experiences, offering a bridge between art history, creativity, and circuit-level neuroscience.</p>
+                    </div>
+                    <!-- Neurolaw -->
+                    <div class="card">
+                        <div class="flex items-center mb-3">
+                            <i class="fas fa-scale-balanced fa-2x text-amber-400 mr-4"></i>
+                            <h3 class="text-2xl font-serif font-bold text-white">Neurolaw</h3>
+                        </div>
+                        <p class="text-slate-400">How should our understanding of the brain impact the justice system? Neurolaw grapples with complex questions of free will, culpability, and memory, aiming to inform a more neurobiologically-grounded legal framework.</p>
+                    </div>
+                    <!-- Contemplative Neuroscience -->
+                    <div class="card">
+                        <div class="flex items-center mb-3">
+                            <i class="fas fa-om fa-2x text-sky-400 mr-4"></i>
+                            <h3 class="text-2xl font-serif font-bold text-white">Contemplative Science</h3>
+                        </div>
+                        <p class="text-slate-400">By studying the minds of expert meditators, we can map the neural basis of well-being, compassion, and attention. This field provides a powerful, proactive approach to understanding mental health, not just mental illness.</p>
+                    </div>
+                    <!-- Neuroarchitecture -->
+                    <div class="card">
+                        <div class="flex items-center mb-3">
+                            <i class="fas fa-city fa-2x text-emerald-400 mr-4"></i>
+                            <h3 class="text-2xl font-serif font-bold text-white">Neuroarchitecture</h3>
+                        </div>
+                        <p class="text-slate-400">How do the spaces we inhabit shape our brains and behavior? This fascinating field explores the connection between the built environment and our cognitive and emotional states, with implications for designing healthier cities and buildings.</p>
+                    </div>
+                 </div>
+             </div>
+        </div>
+
+        <div id="connect" class="page hidden fade-in">
+            <div class="page-content">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">Connect & Profiles</h2>
+                <p class="text-lg text-slate-400 mb-8">I welcome collaboration and discussion. You can find my work and connect with me through the following platforms.</p>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- USER: Add your actual links to the href="#" attributes -->
+                    <a href="#" target="_blank" class="card flex items-center space-x-4">
+                        <i class="fab fa-github fa-2x text-slate-300"></i>
+                        <div>
+                            <h3 class="font-bold text-lg text-white">GitHub</h3>
+                            <p class="text-sm text-slate-500">Code & Projects</p>
+                        </div>
+                    </a>
+                    <a href="https://scholar.google.com/citations?user=5MRDDRYAAAAJ&hl=en" target="_blank" class="card flex items-center space-x-4">
+                         <i class="fas fa-graduation-cap fa-2x text-slate-300"></i>
+                        <div>
+                            <h3 class="font-bold text-lg text-white">Google Scholar</h3>
+                            <p class="text-sm text-slate-500">Citations Profile</p>
+                        </div>
+                    </a>
+                    <a href="#" target="_blank" class="card flex items-center space-x-4">
+                        <i class="fab fa-linkedin fa-2x text-slate-300"></i>
+                        <div>
+                            <h3 class="font-bold text-lg text-white">LinkedIn</h3>
+                            <p class="text-sm text-slate-500">Professional Network</p>
+                        </div>
+                    </a>
+                    <a href="#" target="_blank" class="card flex items-center space-x-4">
+                        <img src="https://orcid.org/favicon.ico" alt="ORCID" class="w-8 h-8 filter grayscale brightness-200">
+                        <div>
+                            <h3 class="font-bold text-lg text-white">ORCID</h3>
+                            <p class="text-sm text-slate-500">Digital Identifier</p>
+                        </div>
+                    </a>
+                     <a href="#" target="_blank" class="card flex items-center space-x-4">
+                        <i class="fab fa-twitter fa-2x text-slate-300"></i>
+                        <div>
+                            <h3 class="font-bold text-lg text-white">Twitter / X</h3>
+                            <p class="text-sm text-slate-500">Thoughts & Updates</p>
+                        </div>
+                    </a>
+                    <a href="#" target="_blank" class="card flex items-center space-x-4">
+                        <i class="fas fa-envelope fa-2x text-slate-300"></i>
+                        <div>
+                            <h3 class="font-bold text-lg text-white">Email</h3>
+                            <p class="text-sm text-slate-500">Direct Contact</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 mt-16 border-t border-slate-700">
+        <div class="container mx-auto px-6 py-8 text-center text-slate-500">
+            <p>&copy; 2025 Michael Martino. All Rights Reserved.</p>
+            <p class="text-sm mt-2">Connecting brain science with the human experience.</p>
+        </div>
+    </footer>
+
+    <script>
+        const pages = document.querySelectorAll('.page');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const mobileNavLinks = document.querySelectorAll('#mobile-menu a');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        function showPage(pageId, clickedLink = null, isMobile = false) {
+            // Hide all pages
+            pages.forEach(page => {
+                page.style.display = 'none';
+                page.classList.remove('fade-in');
+            });
+
+            // Show the target page
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.style.display = 'block';
+                // A slight delay to ensure the animation runs on page change
+                setTimeout(() => targetPage.classList.add('fade-in'), 10);
+            }
+
+            // Determine which link to activate
+            const linkSelector = `a[href="#${pageId}"]`;
+            
+            // Update active nav link for desktop
+            navLinks.forEach(link => link.classList.remove('active'));
+            const desktopLink = document.querySelector(`.hidden.md\\:flex ${linkSelector}`);
+            if (desktopLink) desktopLink.classList.add('active');
+
+            // If on mobile, close the menu after clicking
+            if (isMobile) {
+                mobileMenu.classList.add('hidden');
+            }
+            
+            // Update the URL hash
+            if(history.pushState) {
+                history.pushState(null, null, '#' + pageId);
+            } else {
+                window.location.hash = '#' + pageId;
+            }
+
+            // Scroll to top of page content
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Mobile menu toggle
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Initial page load - handle hash or default to home
+        document.addEventListener('DOMContentLoaded', () => {
+            // Hide all pages initially to prevent flash of unstyled content
+            pages.forEach(page => page.style.display = 'none');
+            const initialPageId = window.location.hash.substring(1) || 'home';
+            showPage(initialPageId);
+        });
+        
+        // Handle browser back/forward navigation
+        window.addEventListener('popstate', () => {
+            const pageId = window.location.hash.substring(1) || 'home';
+            showPage(pageId);
+        });
+
+    </script>
+
+</body>
+</html>
