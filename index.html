@@ -110,6 +110,7 @@
 </head>
 <body class="antialiased">
 
+    <!-- Header & Navigation -->
     <header class="bg-slate-900/80 backdrop-blur-lg border-b border-slate-700/60 sticky top-0 z-50">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#home" class="text-2xl font-bold text-accent" onclick="showPage('home')">The Neuro-Humanist</a>
@@ -126,6 +127,7 @@
                 <i class="fas fa-bars text-2xl"></i>
             </button>
         </nav>
+        <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden border-t border-slate-700 bg-slate-900">
             <a href="#home" class="block py-3 px-6 text-sm hover:bg-slate-800" onclick="showPage('home', this, true)">Home</a>
             <a href="#about" class="block py-3 px-6 text-sm hover:bg-slate-800" onclick="showPage('about', this, true)">My Philosophy</a>
@@ -138,6 +140,7 @@
     </header>
 
     <main class="container mx-auto p-6 md:p-8">
+        <!-- Page Content Sections -->
         <div id="home" class="page fade-in">
             <div class="page-content">
                 <section class="text-center">
@@ -176,7 +179,8 @@
             <div class="page-content">
                 <h2 class="text-3xl md:text-4xl font-serif font-bold mb-8 text-white">My Philosophy: An Unfolding Journey</h2>
                 <div class="card">
-                        <div class="lg:col-span-2 text-lg text-slate-300 leading-relaxed space-y-6">
+                    <div class="grid lg:grid-cols-1 gap-8 items-center">
+                        <div class="text-lg text-slate-300 leading-relaxed space-y-6">
                             <p>My path to neuroscience wasn't a straight line, but a journey fueled by an inquisitive nature I didn't always recognize in myself. It was through the encouragement of teachers over many years that I began to see the potential of my own curiosity. The true catalyst arrived in my final undergraduate semester, in a class on the biology of cardiovascular disease. Learning the intricate details of cellular signaling pathways struck me with a profound sense of awe—that we could understand life at this resolution was a revelation.</p>
                             <p>This newfound desire to explore biological mechanisms led me to a master's degree, where I became enthralled with every facet of science. I devoured philosophy, the biographies of great thinkers, and even mathematics—a subject I had historically abhorred. As I entered medical school, an itch to explore the brain persisted. When I was finally exposed to the nervous system, I knew I had to commit. It was a risk; I could have fallen back on safer projects in exercise metabolism, but I couldn't pass up the chance to discover if neuroscience and psychiatry were where I could finally unite my eclectic interests in pursuit of a higher objective.</p>
                             <p>This website is a reflection of that synthesis: a commitment to a science that is not isolated, but is in constant, dynamic conversation with the full breadth of human knowledge.</p>
@@ -212,13 +216,12 @@
                     </div>
                     <div class="card">
                         <h3 class="text-xl font-serif font-bold text-accent mb-3">Public Scholarship & Essays</h3>
-                         <p class="text-slate-300 leading-relaxed mb-4">I believe in translating complex scientific ideas for a broader audience. My writing explores the intersection of neuroscience, wellness, and global policy.</p>
+                         <p class="text-slate-300 leading-relaxed mb-4">A record of my writing that translates complex scientific ideas for a broader audience. For full posts, please see the <a href="#horizons" onclick="showPage('horizons')" class="text-accent hover:underline font-semibold">Horizons</a> page.</p>
                         <ul class="list-disc list-inside space-y-3 text-slate-300">
-                            <li><a href="https://www.globalstrategyreview.com/brain-economics-part1" target="_blank" class="link-hover">The Brain Revolution (Part 1)</a></li>
-                            <li><a href="https://www.globalstrategyreview.com/brain-economics-part2" target="_blank" class="link-hover">The Brain Revolution (Part 2)</a></li>
-                            <li><a href="https://www.globalstrategyreview.com/wellness" target="_blank" class="link-hover">The Neurobiology of Wellness</a></li>
-                            <li><a href="https://www.globalstrategyreview.com/unga-brain-days-summary" target="_blank" class="link-hover">A Summary of the UNGA Science Summit "Brain Days"</a></li>
-                            <li><a href="https://gradstudies.musc.edu/about/blog/2024/02/smart-quit-aid" target="_blank" class="link-hover">Project Summary: The SMART Quit Aid for Smoking Cessation</a></li>
+                            <li>The Brain Revolution (Part 1 & 2)</li>
+                            <li>The Neurobiology of Wellness</li>
+                            <li>A Summary of the UNGA Science Summit "Brain Days"</li>
+                            <li>Project Summary: The SMART Quit Aid for Smoking Cessation</li>
                         </ul>
                     </div>
                 </div>
@@ -375,13 +378,27 @@
 
         <div id="horizons" class="page hidden fade-in">
             <div class="page-content">
-                 <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">Horizons: Exploring New Frontiers</h2>
-                 <div class="card text-center">
-                    <i class="fas fa-hourglass-half fa-3x text-slate-500 mb-4"></i>
-                    <h3 class="text-2xl font-serif font-bold text-white">Coming Soon</h3>
-                    <p class="text-slate-400 mt-2">New thought pieces and explorations will be featured here in the future.</p>
-                </div>
-             </div>
+                 <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">Horizons: Essays & Reflections</h2>
+                 <p class="max-w-3xl text-lg text-slate-400 leading-relaxed mb-10">A collection of thoughts on the journey through science, medicine, and the search for meaning.</p>
+                 <div class="space-y-12">
+                    <div class="card">
+                        <h3 class="text-2xl font-serif font-bold text-white mb-3">The Brain Revolution (Part 1 & 2)</h3>
+                        <p class="text-slate-300 mb-4">An exploration of the emerging "brain economy" and how advancements in neuroscience are poised to reshape global strategy, industry, and our understanding of human capital.</p>
+                        <a href="https://www.globalstrategyreview.com/brain-economics-part1" target="_blank" class="font-semibold text-accent hover:underline">Read Part 1 &rarr;</a>
+                        <a href="https://www.globalstrategyreview.com/brain-economics-part2" target="_blank" class="font-semibold text-accent hover:underline ml-4">Read Part 2 &rarr;</a>
+                    </div>
+                    <div class="card">
+                        <h3 class="text-2xl font-serif font-bold text-white mb-3">The Neurobiology of Wellness</h3>
+                        <p class="text-slate-300 mb-4">Beyond just the absence of disease, what does it mean to be well? This piece delves into the neural circuits of well-being and how we can proactively cultivate a healthier mind.</p>
+                        <a href="https://www.globalstrategyreview.com/wellness" target="_blank" class="font-semibold text-accent hover:underline">Read More &rarr;</a>
+                    </div>
+                    <div class="card">
+                        <h3 class="text-2xl font-serif font-bold text-white mb-3">Reflections on the UNGA Science Summit "Brain Days"</h3>
+                        <p class="text-slate-300 mb-4">A summary of key takeaways from the United Nations General Assembly's focus on brain health, highlighting the critical need for international collaboration in neuroscience policy.</p>
+                        <a href="https://www.globalstrategyreview.com/unga-brain-days-summary" target="_blank" class="font-semibold text-accent hover:underline">Read More &rarr;</a>
+                    </div>
+                 </div>
+            </div>
         </div>
 
         <div id="connect" class="page hidden fade-in">
