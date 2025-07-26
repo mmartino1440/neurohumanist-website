@@ -80,7 +80,7 @@
         #home {
             background-image: url('https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=2070&auto=format&fit=crop');
         }
-        #about { /* Philosophy */
+        #about, #philosophy-detail { /* Philosophy and its detail page share a background */
             background-image: url('https://bigthink.com/wp-content/uploads/2019/03/origin-87.jpg');
         }
         #research {
@@ -98,6 +98,9 @@
         #connect {
             background-image: url('https://images.unsplash.com/photo-1535378917042-10a22c95931a?q=80&w=2048&auto=format&fit=crop');
         }
+        #support { /* New Support Page Background */
+            background-image: url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=2070&auto=format&fit=crop');
+        }
 
         /* Ensure content sits above the background and its overlay */
         .page-content {
@@ -105,9 +108,12 @@
             z-index: 1;
         }
         
-        /* Archive Button Style */
-        .archive-button {
-            transition: background-color 0.3s, color 0.3s;
+        /* Button Style */
+        .action-button {
+            transition: background-color 0.3s, color 0.3s, transform 0.3s;
+        }
+        .action-button:hover {
+            transform: translateY(-2px);
         }
 
     </style>
@@ -125,6 +131,7 @@
                 <a href="#bookshelf" class="nav-link" onclick="showPage('bookshelf', this)">Bookshelf</a>
                 <a href="#partnership" class="nav-link" onclick="showPage('partnership', this)">AI Partnership</a>
                 <a href="#horizons" class="nav-link" onclick="showPage('horizons', this)">Horizons</a>
+                <a href="#support" class="nav-link" onclick="showPage('support', this)">Support</a>
                 <a href="#connect" class="nav-link" onclick="showPage('connect', this)">Connect</a>
             </div>
             <button id="mobile-menu-button" class="md:hidden focus:outline-none text-slate-300">
@@ -139,6 +146,7 @@
             <a href="#bookshelf" class="block py-3 px-6 text-sm hover:bg-slate-800" onclick="showPage('bookshelf', this, true)">Bookshelf</a>
             <a href="#partnership" class="block py-3 px-6 text-sm hover:bg-slate-800" onclick="showPage('partnership', this, true)">AI Partnership</a>
             <a href="#horizons" class="block py-3 px-6 text-sm hover:bg-slate-800" onclick="showPage('horizons', this, true)">Horizons</a>
+            <a href="#support" class="block py-3 px-6 text-sm hover:bg-slate-800" onclick="showPage('support', this, true)">Support</a>
             <a href="#connect" class="block py-3 px-6 text-sm hover:bg-slate-800" onclick="showPage('connect', this, true)">Connect</a>
         </div>
     </header>
@@ -182,13 +190,42 @@
         <div id="about" class="page hidden fade-in">
             <div class="page-content">
                 <h2 class="text-3xl md:text-4xl font-serif font-bold mb-8 text-white">My Philosophy: An Unfolding Journey</h2>
-                <div class="card">
-                    <div class="grid lg:grid-cols-1 gap-8 items-center">
-                        <div class="text-lg text-slate-300 leading-relaxed space-y-6">
-                            <p>My path to neuroscience wasn't a straight line, but a journey fueled by an inquisitive nature I didn't always recognize in myself. It was through the encouragement of teachers over many years that I began to see the potential of my own curiosity. The true catalyst arrived in my final undergraduate semester, in a class on the biology of cardiovascular disease. Learning the intricate details of cellular signaling pathways struck me with a profound sense of awe—that we could understand life at this resolution was a revelation.</p>
-                            <p>This newfound desire to explore biological mechanisms led me to a master's degree, where I became enthralled with every facet of science. I devoured philosophy, the biographies of great thinkers, and even mathematics—a subject I had historically abhorred. As I entered medical school, an itch to explore the brain persisted. When I was finally exposed to the nervous system, I knew I had to commit. It was a risk; I could have fallen back on safer projects in exercise metabolism, but I couldn't pass up the chance to discover if neuroscience and psychiatry were where I could finally unite my eclectic interests in pursuit of a higher objective.</p>
-                            <p>This website is a reflection of that synthesis: a commitment to a science that is not isolated, but is in constant, dynamic conversation with the full breadth of human knowledge.</p>
-                        </div>
+                <div class="card max-w-4xl mx-auto">
+                    <div class="text-lg text-slate-300 leading-relaxed space-y-6">
+                        <p>My path to neuroscience wasn't a straight line, but a journey fueled by an inquisitive nature I didn't always recognize in myself. It was through the encouragement of teachers over many years that I began to see the potential of my own curiosity. The true catalyst arrived in my final undergraduate semester, in a class on the biology of cardiovascular disease. Learning the intricate details of cellular signaling pathways struck me with a profound sense of awe—that we could understand life at this resolution was a revelation.</p>
+                        <p>This newfound desire to explore biological mechanisms led me to a master's degree, where I became enthralled with every facet of science. I devoured philosophy, the biographies of great thinkers, and even mathematics—a subject I had historically abhorred. As I entered medical school, an itch to explore the brain persisted. When I was finally exposed to the nervous system, I knew I had to commit. It was a risk; I could have fallen back on safer projects in exercise metabolism, but I couldn't pass up the chance to discover if neuroscience and psychiatry were where I could finally unite my eclectic interests in pursuit of a higher objective.</p>
+                        <p>This website is a reflection of that synthesis: a commitment to a science that is not isolated, but is in constant, dynamic conversation with the full breadth of human knowledge.</p>
+                    </div>
+                    <div class="text-center mt-10">
+                        <button onclick="showPage('philosophy-detail')" class="action-button bg-sky-500 hover:bg-sky-600 text-white font-bold py-3 px-6 rounded-lg">
+                            Read My Full Personal Philosophy &rarr;
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="philosophy-detail" class="page hidden fade-in">
+            <div class="page-content">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold mb-8 text-white">The Curious Path: A Personal Philosophy</h2>
+                <div class="card max-w-4xl mx-auto">
+                    <div class="text-lg text-slate-300 leading-relaxed space-y-6">
+                        <p class="italic">This is an exploration born from deep personal reflection, navigating the demanding currents of a high-demand program with the quiet pull of ancient wisdom. It is a philosophy not of dogmatic certainty, but of curious inquiry, embracing the inherent paradoxes of existence and seeking a more compassionate way to understand ourselves and the world.</p>
+                        
+                        <h3 class="text-2xl font-serif text-accent pt-4">I. Meaning: Forged, Not Found</h3>
+                        <p>Like many, I've often wondered what the meaning of life is. I've come to realize that <strong>meaning is not pre-destined, but an active, continuous act of creation.</strong> We do not arrive in this world with a singular, unique destiny waiting to be uncovered. Instead, we are the artisans of our own significance, shaping our purpose through our choices, our values, and our engagement with the world. What we <em>do</em>, far more than what we <em>declare</em>, is the truest and loudest expression of what truly matters to us. This journey of active creation, rather than passive search, imbues life with an intrinsic beauty and responsibility.</p>
+
+                        <h3 class="text-2xl font-serif text-accent pt-4">II. Existence: A Dynamic Dance of Flow and Impermanence</h3>
+                        <p>Life, as I perceive it, is inherently dynamic and ever-changing. Like a river, it is in perpetual flux, never stagnant. Many of our deepest struggles, I've observed, arise from an <strong>internal attachment to a rigid idea of "how things should be."</strong> This clinging to fixed outcomes or perfect states limits our vision and generates unnecessary internal conflict. Wisdom lies not in resisting this constant flow, but in learning to adapt and adjust without sacrificing our core essence. The notion of "doing nothing, yet leaving nothing undone" is not laziness, but a profound acceptance that tasks are boundless; true mastery lies in acting wisely within this endless flow, appreciating that the only way to "complete" everything is to cease activity itself. This understanding liberates us from the exhausting pursuit of absolute completion.</p>
+
+                        <h3 class="text-2xl font-serif text-accent pt-4">III. Behavior: A Tapestry of Unseen Influences</h3>
+                        <p>Our actions are rarely simple reflections of deliberate choice. They are complex outputs influenced by myriad factors, from the neurological firings of milliseconds before, to the hormonal shifts of days prior, and the deeply ingrained patterns of our upbringing and cultural heritage spanning millennia. A behavior, even one seemingly simple like returning a shopping cart, is a <strong>complex, multimodal representation of both the person AND their circumstances.</strong> Understanding this complexity fosters profound empathy, shifting judgment to curiosity and inviting us to explore the "why" behind actions with an open heart.</p>
+
+                        <h3 class="text-2xl font-serif text-accent pt-4">IV. Inner World: Navigating Contradictions with Compassion</h3>
+                        <p>My own journey has been marked by internal contradictions: the relentless ambition of an MD-PhD student balanced with a yearning for a minimalist, almost Buddhist, simplicity. This tension, far from being a flaw, has become a source of profound learning. Personal psychological distress and life challenges are inextricably linked to professional progress. True strength lies in recognizing needs and embracing beneficial assistance. True worth lies not in titles, but in the authentic engagement of one's mind, compassionate actions, and dedication to personal values.</p>
+
+                        <h3 class="text-2xl font-serif text-accent pt-4">V. Shared Wisdom: The River of Growth</h3>
+                        <p> <strong>Personal growth is often a collaborative endeavor</strong>, enriched by diverse perspectives and the wisdom of those who came before, and my own insights have deepened through shared reflection and dialogue. Skepticism, when used as a tool for deeper inquiry rather than worry, allows for a continuous process of learning and refinement. The meaning gleaned from ancient texts, like the Tao Te Ching, is personal and evolves with the reader, echoing the understanding that "you never step in the same river twice."</p>
                     </div>
                 </div>
             </div>
@@ -260,7 +297,7 @@
                 </div>
 
                 <div class="text-center my-12">
-                    <button id="toggle-archive-btn" class="archive-button bg-slate-700 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded-lg">
+                    <button id="toggle-archive-btn" class="action-button bg-slate-700 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded-lg">
                         Show Full Bookshelf Archive
                     </button>
                 </div>
@@ -376,15 +413,33 @@
                         <h3 class="text-xl font-serif font-bold text-accent mb-3">An Open Philosophy</h3>
                         <p class="text-slate-300 leading-relaxed">I am committed to the principles of open science. I believe that knowledge, including the methods used to generate it, should not be gatekept. This section, and the insights within it, will always be freely accessible. For those who are interested in supporting this work and getting a deeper, behind-the-scenes look at my projects, I may explore community-funding models like Patreon in the future. The goal is to build a community, not a paywall.</p>
                     </div>
+                    <!-- New AI Resource Card -->
+                    <a href="https://youtube.com/@drandystapleton?si=1G-QHgU7nGgYZugx" target="_blank" class="card block">
+                        <div class="flex items-center mb-4">
+                            <!-- The icon for the resource (YouTube) -->
+                            <i class="fab fa-youtube fa-2x text-red-500 mr-4"></i>
+                        <div>
+                             <!-- The title of the resource -->
+                            <h3 class="text-xl font-serif font-bold text-white">Dr. Andy Stapleton</h3>
+                            <!-- The type of resource -->
+                            <p class="text-slate-400">YouTube Channel</p>
+                        </div>
+                    </div>
+                    <!-- A brief description -->
+                    <p class="text-sm text-slate-400">A great resource for understanding and applying AI, with a focus on practical tools and clear explanations for researchers and professionals.</p>
+                </a>
                 </div>
             </div>
         </div>
 
         <div id="horizons" class="page hidden fade-in">
             <div class="page-content">
-                 <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">Horizons: Essays & Reflections</h2>
-                 <p class="max-w-3xl text-lg text-slate-400 leading-relaxed mb-10">A collection of thoughts on the journey through science, medicine, and the search for meaning.</p>
-                 <div class="space-y-12">
+                 <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6 text-white text-center">Horizons</h2>
+                 <p class="max-w-3xl mx-auto text-center text-lg text-slate-400 leading-relaxed mb-10">A collection of thoughts on the journey through science, medicine, and the search for meaning.</p>
+                 
+                 <!-- Section for Published Essays -->
+                 <h3 class="text-2xl font-serif text-accent mb-6 border-b-2 border-slate-700 pb-2">Published Essays</h3>
+                 <div class="space-y-12 mb-16">
                     <div class="card">
                         <h3 class="text-2xl font-serif font-bold text-white mb-3">The Brain Revolution (Part 1 & 2)</h3>
                         <p class="text-slate-300 mb-4">An exploration of the emerging "brain economy" and how advancements in neuroscience are poised to reshape global strategy, industry, and our understanding of human capital.</p>
@@ -402,6 +457,39 @@
                         <a href="https://www.globalstrategyreview.com/unga-brain-days-summary" target="_blank" class="font-semibold text-accent hover:underline">Read More &rarr;</a>
                     </div>
                  </div>
+
+                 <!-- Section for Musings -->
+                <h3 class="text-2xl font-serif text-accent mb-6 border-b-2 border-slate-700 pb-2">Miscellaneous Musings</h3>
+                <div class="space-y-12">
+                    <div class="card">
+                        <h3 class="text-2xl font-serif font-bold text-white mb-3">Something from Nothing</h3>
+                        <div class="text-slate-300 leading-relaxed space-y-4">
+                            <p>As we have learned from quantum mechanics, relying on our intuition about how things work from our limited human perspective greatly limits our ability to understand nature. The reason quantum mechanics seems so strange is because they defy classic mechanics of which we are much more intimately familiar, whether or not we have formal training in the subject. The laws that govern the fundamental particles that are the building blocks of our universe are extremely unintuitive and defy any sort of common sense or intuition we may have, which is largely explained by our historical lack of observational evidence of these processes. Only within the last century have we come to gain an appreciation for the atomic and subatomic foundations which our observable world is built upon.</p>
+                            <p>These paradigm shifts in our understanding of nature have largely been the result of great abstractions and departures from convention. The minds which first stumbled upon and shared such insights generally faced a great deal of opposition and criticism for years before seeing their hypotheses come to be accepted after rigorous testing and validation of their findings, if they were so fortunate. To consider how something comes from nothing requires a departure from convention and what we generally assume to be "common sense".</p>
+                            <p>First, we must define nothing: nothingness describes a vacuum, in which no matter exists. Without matter, time and space also cease to have meaning (in other words, they do not exist). In a reality where time has no meaning is one where nothing is impossible, because for all we know nothing is truly impossible but simply highly improbable (so exceedingly improbable that when expressed as the amount of time needed for such an event to occur, we can say it is in principle impossible), improbable things can occur, including the emergence of something from nothing. In a world where time has no meaning, it doesn't exist so it does not exert any influence on events, and therefore time is not a constraint on what may happen. In this way an otherwise exceedingly rare occurrence, the spontaneous appearance of something from nothing, can be thought of as an eventual inevitability in the absence of time. In addition, a lack of matter would place constraints on which events can occur if progress is linear (as in, the most fundamental constituents of matter pop into existence at once before complexity can increase); truth be told I’m not at all confident in this last proposition as I have become increasingly aware of non-linearity in nature, but haven’t yet fully thought through the arguments for and against it.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="support" class="page hidden fade-in">
+            <div class="page-content">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6 text-white text-center">Support the Work</h2>
+                <p class="max-w-3xl mx-auto text-center text-lg text-slate-300 leading-relaxed mb-10">This project is a labor of love, fueled by a passion for interdisciplinary science and open knowledge. If you find value in these ideas and wish to support their continuation, here are a few ways you can help.</p>
+                <div class="grid md:grid-cols-1 lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <a href="https://stryker-mavele.com/" target="_blank" class="card flex flex-col items-center text-center">
+                        <div class="text-accent mb-4"><i class="fas fa-store fa-3x"></i></div>
+                        <h3 class="text-2xl font-serif font-bold text-white mb-2">Visit Our Family Store</h3>
+                        <p class="text-slate-400">Explore Stryker-Mavele, our family's curated collection of home goods, apparel, and creative designs. Every purchase directly supports our family as we build this legacy.</p>
+                    </a>
+                    <a href="#" target="_blank" class="card flex flex-col items-center text-center">
+                        <div class="text-red-500 mb-4"><i class="fab fa-patreon fa-3x"></i></div>
+                        <h3 class="text-2xl font-serif font-bold text-white mb-2">Join on Patreon</h3>
+                        <p class="text-slate-400">For direct, recurring support, consider joining my Patreon community (coming soon). You'll get behind-the-scenes access and a deeper look into my research and writing process.</p>
+                    </a>
+                </div>
             </div>
         </div>
 
@@ -429,6 +517,13 @@
                         <div>
                             <h3 class="font-bold text-lg text-white">Google Scholar</h3>
                             <p class="text-sm text-slate-500">Citations Profile</p>
+                        </div>
+                    </a>
+                    <a href="https://stryker-mavele.com/" target="_blank" class="card flex items-center space-x-4">
+                        <i class="fas fa-store fa-2x text-slate-300"></i>
+                        <div>
+                            <h3 class="font-bold text-lg text-white">Stryker-Mavele</h3>
+                            <p class="text-sm text-slate-500">Our Family Store</p>
                         </div>
                     </a>
                     <a href="#" target="_blank" class="card flex items-center space-x-4">
@@ -487,15 +582,27 @@
 
             const linkSelector = `a[href="#${pageId}"]`;
             navLinks.forEach(link => link.classList.remove('active'));
-            const desktopLink = document.querySelector(`.hidden.md\\:flex ${linkSelector}`);
-            if (desktopLink) desktopLink.classList.add('active');
+            
+            // Highlight active link in both desktop and mobile nav
+            const activeLinks = document.querySelectorAll(linkSelector);
+            activeLinks.forEach(link => {
+                // Only add active class if the link is in the main nav
+                if(link.classList.contains('nav-link')) {
+                    link.classList.add('active');
+                }
+            });
 
             if (isMobile) {
                 mobileMenu.classList.add('hidden');
             }
             
             if(history.pushState) {
-                history.pushState(null, null, '#' + pageId);
+                // We only want to push state for main pages, not sub-pages like philosophy-detail
+                if(document.querySelector(`a[href="#${pageId}"].nav-link`)) {
+                    history.pushState(null, null, '#' + pageId);
+                } else {
+                     history.pushState(null, null, '#about'); // Keep the URL at #about
+                }
             } else {
                 window.location.hash = '#' + pageId;
             }
