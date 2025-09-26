@@ -229,16 +229,16 @@
     <!-- Header & Navigation -->
     <header class="bg-slate-900/80 backdrop-blur-lg border-b border-slate-700/60 sticky top-0 z-50">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#home" class="text-2xl font-bold text-accent" onclick="showPage('home')">The Neuro-Humanist</a>
+            <a href="#home" class="text-2xl font-bold text-accent" onclick="event.preventDefault(); showPage('home')">The Neuro-Humanist</a>
             <div class="hidden md:flex items-center space-x-6 lg:space-x-8 text-slate-300">
-                <a href="#home" class="nav-link active" onclick="showPage('home', this)">Home</a>
-                <a href="#about" class="nav-link" onclick="showPage('about', this)">Philosophy</a>
-                <a href="#research" class="nav-link" onclick="showPage('research', this)">Research</a>
-                <a href="#current-projects" class="nav-link" onclick="showPage('current-projects', this)">Lab Notebook</a>
-                <a href="#bookshelf" class="nav-link" onclick="showPage('bookshelf', this)">Library</a>
-                <a href="#partnership" class="nav-link" onclick="showPage('partnership', this)">AI Partnership</a>
-                <a href="#horizons" class="nav-link" onclick="showPage('horizons', this)">Writings</a>
-                <a href="#connect" class="nav-link" onclick="showPage('connect', this)">Connect</a>
+                <a href="#home" class="nav-link active" onclick="event.preventDefault(); showPage('home', this)">Home</a>
+                <a href="#about" class="nav-link" onclick="event.preventDefault(); showPage('about', this)">Philosophy</a>
+                <a href="#research" class="nav-link" onclick="event.preventDefault(); showPage('research', this)">Research</a>
+                <a href="#current-projects" class="nav-link" onclick="event.preventDefault(); showPage('current-projects', this)">Lab Notebook</a>
+                <a href="#bookshelf" class="nav-link" onclick="event.preventDefault(); showPage('bookshelf', this)">Library</a>
+                <a href="#partnership" class="nav-link" onclick="event.preventDefault(); showPage('partnership', this)">AI Partnership</a>
+                <a href="#horizons" class="nav-link" onclick="event.preventDefault(); showPage('horizons', this)">Writings</a>
+                <a href="#connect" class="nav-link" onclick="event.preventDefault(); showPage('connect', this)">Connect</a>
             </div>
             <button id="mobile-menu-button" class="md:hidden focus:outline-none text-slate-300">
                 <i class="fas fa-bars text-2xl"></i>
@@ -246,14 +246,14 @@
         </nav>
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden border-t border-slate-700 bg-slate-900">
-            <a href="#home" class="block py-3 px-6 text-sm hover:bg-slate-800" onclick="showPage('home', this, true)">Home</a>
-            <a href="#about" class="block py-3 px-6 text-sm hover:bg-slate-800" onclick="showPage('about', this, true)">Philosophy</a>
-            <a href="#research" class="block py-3 px-6 text-sm hover:bg-slate-800" onclick="showPage('research', this, true)">Research</a>
-            <a href="#current-projects" class="block py-3 px-6 text-sm hover:bg-slate-800" onclick="showPage('current-projects', this, true)">Lab Notebook</a>
-            <a href="#bookshelf" class="block py-3 px-6 text-sm hover:bg-slate-800" onclick="showPage('bookshelf', this, true)">Library</a>
-            <a href="#partnership" class="block py-3 px-6 text-sm hover:bg-slate-800" onclick="showPage('partnership', this, true)">AI Partnership</a>
-            <a href="#horizons" class="block py-3 px-6 text-sm hover:bg-slate-800" onclick="showPage('horizons', this, true)">Writings</a>
-            <a href="#connect" class="block py-3 px-6 text-sm hover:bg-slate-800" onclick="showPage('connect', this, true)">Connect</a>
+            <a href="#home" class="block py-3 px-6 text-sm hover:bg-slate-800" onclick="event.preventDefault(); showPage('home', this, true)">Home</a>
+            <a href="#about" class="block py-3 px-6 text-sm hover:bg-slate-800" onclick="event.preventDefault(); showPage('about', this, true)">Philosophy</a>
+            <a href="#research" class="block py-3 px-6 text-sm hover:bg-slate-800" onclick="event.preventDefault(); showPage('research', this, true)">Research</a>
+            <a href="#current-projects" class="block py-3 px-6 text-sm hover:bg-slate-800" onclick="event.preventDefault(); showPage('current-projects', this, true)">Lab Notebook</a>
+            <a href="#bookshelf" class="block py-3 px-6 text-sm hover:bg-slate-800" onclick="event.preventDefault(); showPage('bookshelf', this, true)">Library</a>
+            <a href="#partnership" class="block py-3 px-6 text-sm hover:bg-slate-800" onclick="event.preventDefault(); showPage('partnership', this, true)">AI Partnership</a>
+            <a href="#horizons" class="block py-3 px-6 text-sm hover:bg-slate-800" onclick="event.preventDefault(); showPage('horizons', this, true)">Writings</a>
+            <a href="#connect" class="block py-3 px-6 text-sm hover:bg-slate-800" onclick="event.preventDefault(); showPage('connect', this, true)">Connect</a>
         </div>
     </header>
 
@@ -276,7 +276,7 @@
                     <div class="primary-card max-w-4xl mx-auto">
                         <h3 class="text-xl font-serif text-accent mb-3">Current Thought</h3>
                         <p class="text-slate-300 italic">"The reason quantum mechanics seems so strange is because they defy classic mechanics of which we are much more intimately familiar. Only within the last century have we come to gain an appreciation for the atomic and subatomic foundations which our observable world is built upon..."</p>
-                        <a href="#horizons" onclick="showPage('horizons')" class="text-accent hover:underline text-sm mt-2 inline-block">Read "Something from Nothing" →</a>
+                        <a href="#horizons" onclick="event.preventDefault(); showPage('horizons')" class="text-accent hover:underline text-sm mt-2 inline-block">Read "Something from Nothing" →</a>
                     </div>
                 </section>
                 
@@ -444,6 +444,51 @@
                             <li>Eyre, H. A., Ayadi, P., Swieboda, M., Berk, M., Ibanez, A., ME, C., ... & Martino, M. (2024). The brain economy: Advancing brain science to better understand the modern economy. <em>The Malaysian journal of medical sciences: MJMS</em>.</li>
                             <li>More can be found on my <a href="https://scholar.google.com/citations?user=5MRDDRYAAAAJ&hl=en" target="_blank" class="text-accent hover:underline font-semibold">Google Scholar profile</a>.</li>
                         </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LAB NOTEBOOK / CURRENT PROJECTS PAGE -->
+        <div id="current-projects" class="page hidden fade-in">
+            <div class="page-content">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">Lab Notebook: Current Projects</h2>
+                <p class="text-lg text-slate-300 mb-8">Ongoing research thoughts and preliminary findings from the intersection of systems neuroscience and computational psychiatry.</p>
+                
+                <div class="space-y-8">
+                    <div class="primary-card">
+                        <span class="latest-badge">Active</span>
+                        <h3 class="text-xl font-serif font-bold text-white mb-3">Whole-Brain Fear Sensitization Mapping</h3>
+                        <p class="text-slate-300 mb-4">Developing a comprehensive atlas of fear sensitization using iDISCO+ tissue clearing and light sheet microscopy. This project aims to identify distributed network changes beyond traditional fear circuits.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tag">#c-Fos</span>
+                            <span class="tag">#network-analysis</span>
+                            <span class="tag">#fear-circuits</span>
+                        </div>
+                        <p class="text-sm text-slate-400"><strong>Status:</strong> Data collection phase</p>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="text-xl font-serif font-bold text-white mb-3">Chemogenetic Circuit Validation</h3>
+                        <p class="text-slate-300 mb-4">Using DREADDs to selectively manipulate identified hub regions from our network analysis to establish causal relationships in fear sensitization.</p>
+                        <p class="text-sm text-slate-400"><strong>Status:</strong> Protocol development</p>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="text-xl font-serif font-bold text-white mb-3">Computational Modeling of Fear Generalization</h3>
+                        <p class="text-slate-300 mb-4">Developing a computational framework to predict individual differences in fear generalization based on network topology. Collaboration with computational psychiatry group.</p>
+                        <p class="text-sm text-slate-400"><strong>Status:</strong> Model development</p>
+                    </div>
+
+                    <div class="card bg-slate-800/50">
+                        <h3 class="text-xl font-serif font-bold text-accent mb-3">Methods Note: R-Based Analysis Pipeline</h3>
+                        <p class="text-slate-300 mb-4">Developing reproducible analysis pipelines in R for whole-brain imaging data. Current focus on integrating spatial transcriptomics with c-Fos activation patterns.</p>
+                        <pre class="bg-slate-900 p-3 rounded text-sm text-slate-400 overflow-x-auto">
+# Example: Network hub identification
+library(tidyverse)
+library(igraph)
+library(brainconn)
+# Pipeline available on GitHub (coming soon)</pre>
                     </div>
                 </div>
             </div>
@@ -841,19 +886,22 @@
         const librarySearch = document.getElementById('library-search');
 
         function showPage(pageId, clickedLink = null, isMobile = false) {
+            // Hide all page elements
             pages.forEach(page => {
-                page.style.display = 'none';
+                page.classList.add('hidden');
                 page.classList.remove('fade-in');
             });
 
+            // Show the target page
             const targetPage = document.getElementById(pageId);
             if (targetPage) {
-                targetPage.style.display = 'block';
+                targetPage.classList.remove('hidden');
                 setTimeout(() => targetPage.classList.add('fade-in'), 10);
             }
 
+            // Update active class on desktop nav links
             const linkSelector = `a[href="#${pageId}"]`;
-            navLinks.forEach(link => link.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
             
             const activeLinks = document.querySelectorAll(linkSelector);
             activeLinks.forEach(link => {
@@ -862,16 +910,14 @@
                 }
             });
 
+            // Hide mobile menu if a link there was clicked
             if (isMobile) {
                 mobileMenu.classList.add('hidden');
             }
             
+            // Update URL hash
             if(history.pushState) {
-                if(document.querySelector(`a[href="#${pageId}"].nav-link`)) {
-                    history.pushState(null, null, '#' + pageId);
-                } else {
-                    history.pushState(null, null, '#about');
-                }
+                history.pushState(null, null, '#' + pageId);
             } else {
                 window.location.hash = '#' + pageId;
             }
@@ -908,71 +954,20 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            // Hide all pages initially
-            pages.forEach(page => page.style.display = 'none');
-            
-            // Get the page ID from URL hash or default to home
-            let initialPageId = window.location.hash.substring(1) || 'home';
-            
-            // Validate that the page exists, otherwise default to home
-            if (!document.getElementById(initialPageId)) {
-                initialPageId = 'home';
+        // Handles page state based on URL hash
+        function handleRouting() {
+            let pageId = window.location.hash.substring(1) || 'home';
+            if (!document.getElementById(pageId)) {
+                pageId = 'home';
             }
-            
-            // Show the initial page
-            showPage(initialPageId);
-        });
-        
-        window.addEventListener('hashchange', () => {
-            const pageId = window.location.hash.substring(1) || 'home';
-            if (document.getElementById(pageId)) {
-                showPage(pageId);
-            }
-        });
-        
-        window.addEventListener('popstate', () => {
-            const pageId = window.location.hash.substring(1) || 'home';
-            if (document.getElementById(pageId)) {
-                showPage(pageId);
-            }
-        });
-            <div class="page-content">
-                <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">Lab Notebook: Current Projects</h2>
-                <p class="text-lg text-slate-300 mb-8">Ongoing research thoughts and preliminary findings from the intersection of systems neuroscience and computational psychiatry.</p>
-                
-                <div class="space-y-8">
-                    <div class="primary-card">
-                        <span class="latest-badge">Active</span>
-                        <h3 class="text-xl font-serif font-bold text-white mb-3">Whole-Brain Fear Sensitization Mapping</h3>
-                        <p class="text-slate-300 mb-4">Developing a comprehensive atlas of fear sensitization using iDISCO+ tissue clearing and light sheet microscopy. This project aims to identify distributed network changes beyond traditional fear circuits.</p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="tag">#c-Fos</span>
-                            <span class="tag">#network-analysis</span>
-                            <span class="tag">#fear-circuits</span>
-                        </div>
-                        <p class="text-sm text-slate-400"><strong>Status:</strong> Data collection phase</p>
-                    </div>
+            showPage(pageId);
+        }
 
-                    <div class="card">
-                        <h3 class="text-xl font-serif font-bold text-white mb-3">Chemogenetic Circuit Validation</h3>
-                        <p class="text-slate-300 mb-4">Using DREADDs to selectively manipulate identified hub regions from our network analysis to establish causal relationships in fear sensitization.</p>
-                        <p class="text-sm text-slate-400"><strong>Status:</strong> Protocol development</p>
-                    </div>
+        // Set up the page on initial load
+        document.addEventListener('DOMContentLoaded', handleRouting);
 
-                    <div class="card">
-                        <h3 class="text-xl font-serif font-bold text-white mb-3">Computational Modeling of Fear Generalization</h3>
-                        <p class="text-slate-300 mb-4">Developing a computational framework to predict individual differences in fear generalization based on network topology. Collaboration with computational psychiatry group.</p>
-                        <p class="text-sm text-slate-400"><strong>Status:</strong> Model development</p>
-                    </div>
-
-                    <div class="card bg-slate-800/50">
-                        <h3 class="text-xl font-serif font-bold text-accent mb-3">Methods Note: R-Based Analysis Pipeline</h3>
-                        <p class="text-slate-300 mb-4">Developing reproducible analysis pipelines in R for whole-brain imaging data. Current focus on integrating spatial transcriptomics with c-Fos activation patterns.</p>
-                        <pre class="bg-slate-900 p-3 rounded text-sm text-slate-400 overflow-x-auto">
-# Example: Network hub identification
-library(tidyverse)
-library(igraph)
-library(brainconn)
-# Pipeline available on GitHub (coming soon)</pre>
-                    </div>
+        // Handle browser back/forward navigation
+        window.addEventListener('popstate', handleRouting);
+    </script>
+</body>
+</html>
