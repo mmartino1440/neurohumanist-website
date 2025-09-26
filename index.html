@@ -391,19 +391,34 @@
                     <h3 class="text-xl font-serif font-bold text-accent mb-6">Research Evolution</h3>
                     <div class="timeline">
                         <div class="timeline-item">
+                            <span class="text-sm text-slate-400">2016</span>
+                            <h4 class="font-semibold text-white">Master's in Kinesiology</h4>
+                            <p class="text-sm text-slate-300">Began basic liver metabolism research using mouse models and cell culture</p>
+                        </div>
+                        <div class="timeline-item">
+                            <span class="text-sm text-slate-400">2018</span>
+                            <h4 class="font-semibold text-white">Research Continuation</h4>
+                            <p class="text-sm text-slate-300">Graduated from Master's, continued advancing metabolism research</p>
+                        </div>
+                        <div class="timeline-item">
+                            <span class="text-sm text-slate-400">2020</span>
+                            <h4 class="font-semibold text-white">MSTP Program Entry</h4>
+                            <p class="text-sm text-slate-300">Began MD/PhD journey</p>
+                        </div>
+                        <div class="timeline-item">
                             <span class="text-sm text-slate-400">2022</span>
-                            <h4 class="font-semibold text-white">Metabolic Neuroscience</h4>
-                            <p class="text-sm text-slate-300">Silencing alanine transaminase 2 in diabetic liver (Cell Reports)</p>
+                            <h4 class="font-semibold text-white">Neuroscience Pivot</h4>
+                            <p class="text-sm text-slate-300">Committed to fear sensitization research; First author metabolism paper published (Cell Reports)</p>
                         </div>
                         <div class="timeline-item">
                             <span class="text-sm text-slate-400">2024</span>
                             <h4 class="font-semibold text-white">Addiction Circuits</h4>
-                            <p class="text-sm text-slate-300">Paraventricular thalamo-accumbal circuit in heroin seeking (Neuron)</p>
+                            <p class="text-sm text-slate-300">Co-author on paraventricular thalamo-accumbal circuit paper (Neuron)</p>
                         </div>
                         <div class="timeline-item">
                             <span class="text-sm text-slate-400">2024-Present</span>
-                            <h4 class="font-semibold text-white">Brain Economy & Systems Neuroscience</h4>
-                            <p class="text-sm text-slate-300">Whole-brain mapping of fear sensitization networks</p>
+                            <h4 class="font-semibold text-white">Current Focus</h4>
+                            <p class="text-sm text-slate-300">Brain economy research, fear sensitization mechanisms, autism in young adults</p>
                         </div>
                     </div>
                 </div>
@@ -616,6 +631,31 @@
                 </div>
                 
                 <!-- Published Essays -->
+                <h3 class="text-2xl font-serif text-accent mb-6 border-b-2 border-slate-700 pb-2">Talks & Presentations</h3>
+                <div class="space-y-6 mb-16">
+                    <div class="primary-card">
+                        <span class="latest-badge">New</span>
+                        <h3 class="text-2xl font-serif font-bold text-white mb-2">Neuroscience, Psychiatry, and the Brain Economy</h3>
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="tag">#brain-economy</span>
+                            <span class="tag">#global-strategy</span>
+                            <span class="tag">#mental-health</span>
+                        </div>
+                        <p class="text-slate-300 mb-4">Exploring the critical intersection of brain science, mental health, and global economic strategy. Presented to undergraduate students through Research Outreach and Opportunities through Science (ROOTS) in partnership with American University of Beirut and Global Strategy Review.</p>
+                        <div class="relative" style="padding-bottom: 56.25%; height: 0; overflow: hidden;">
+                            <iframe 
+                                src="https://www.youtube.com/embed/Zia8KSvlCj0" 
+                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                        <p class="text-sm text-slate-400 mt-4">Special thanks to Elie Joe Akiki for the invitation.</p>
+                    </div>
+                </div>
+                
+                <!-- Published Essays -->
                 <h3 class="text-2xl font-serif text-accent mb-6 border-b-2 border-slate-700 pb-2">Published Work</h3>
                 <div class="space-y-6 mb-16">
                     <div class="card">
@@ -672,6 +712,13 @@
                 <p class="text-lg text-slate-400 mb-8">I welcome collaboration and discussion. Find my work and connect through these platforms.</p>
                 
                 <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <a href="https://neurohumanist.substack.com" target="_blank" class="card flex items-center space-x-4">
+                        <i class="fas fa-newspaper fa-2x text-slate-300"></i>
+                        <div>
+                            <h3 class="font-bold text-lg text-white">Newsletter</h3>
+                            <p class="text-sm text-slate-500">The Neuro-Humanist on Substack</p>
+                        </div>
+                    </a>
                     <a href="https://orcid.org/0000-0001-6002-5849" target="_blank" class="card flex items-center space-x-4">
                         <img src="https://orcid.org/favicon.ico" alt="ORCID logo" class="w-8 h-8 filter grayscale brightness-200">
                         <div>
@@ -862,14 +909,33 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
+            // Hide all pages initially
             pages.forEach(page => page.style.display = 'none');
-            const initialPageId = window.location.hash.substring(1) || 'home';
+            
+            // Get the page ID from URL hash or default to home
+            let initialPageId = window.location.hash.substring(1) || 'home';
+            
+            // Validate that the page exists, otherwise default to home
+            if (!document.getElementById(initialPageId)) {
+                initialPageId = 'home';
+            }
+            
+            // Show the initial page
             showPage(initialPageId);
+        });
+        
+        window.addEventListener('hashchange', () => {
+            const pageId = window.location.hash.substring(1) || 'home';
+            if (document.getElementById(pageId)) {
+                showPage(pageId);
+            }
         });
         
         window.addEventListener('popstate', () => {
             const pageId = window.location.hash.substring(1) || 'home';
-            showPage(pageId);
+            if (document.getElementById(pageId)) {
+                showPage(pageId);
+            }
         });
             <div class="page-content">
                 <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">Lab Notebook: Current Projects</h2>
