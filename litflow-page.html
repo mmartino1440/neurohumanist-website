@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LitFlow — Literature Tracker for Researchers | Michael Martino</title>
+  <meta name="description" content="A structured literature review system that keeps you thinking. Built for graduate students and researchers who want AI assistance without outsourcing their minds.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg:       #0f172a;
+      --bg-2:     #1e293b;
+      --border:   rgba(51, 65, 85, 0.7);
+      --accent:   #38bdf8;
+      --accent-l: rgba(56, 189, 248, 0.12);
+      --text:     #cbd5e1;
+      --text-dim: #94a3b8;
+      --white:    #f8fafc;
+      --radius:   0.75rem;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 15px; line-height: 1.7;
+      color: var(--text); background: var(--bg);
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem; height: 60px;
+      display: flex; align-items: center; gap: 1.5rem;
+    }
+    .nav-brand {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 1.15rem; font-weight: 700; color: var(--white);
+      text-decoration: none; display: flex; align-items: baseline; gap: 0.3rem;
+    }
+    .nav-brand span { color: var(--accent); }
+    .nav-back {
+      font-size: 0.8rem; color: var(--text-dim); text-decoration: none;
+      margin-left: auto; display: flex; align-items: center; gap: 0.4rem;
+      transition: color 0.2s;
+      border-bottom: 2px solid transparent; padding-bottom: 2px;
+    }
+    .nav-back:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+    /* CARDS */
+    .card {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .card:hover { transform: translateY(-4px); border-color: var(--accent); }
+    .primary-card {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.9));
+      border: 2px solid rgba(56, 189, 248, 0.3);
+      border-radius: var(--radius);
+      padding: 2rem;
+    }
+
+    /* BUTTONS */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--accent); color: var(--bg);
+      font-size: 0.9rem; font-weight: 700;
+      padding: 0.75rem 1.75rem; border-radius: 0.5rem;
+      text-decoration: none; transition: all 0.2s;
+    }
+    .btn-primary:hover { background: #7dd3fc; transform: translateY(-2px); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      color: var(--text-dim); font-size: 0.88rem; font-weight: 500;
+      padding: 0.7rem 1.4rem; border-radius: 0.5rem;
+      text-decoration: none; border: 1px solid var(--border);
+      background: transparent; transition: all 0.2s;
+    }
+    .btn-ghost:hover { color: var(--white); border-color: var(--accent); }
+
+    /* LAYOUT */
+    section { padding: 5rem 2rem; }
+    .inner { max-width: 820px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.62rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.14em; color: var(--accent); margin-bottom: 0.75rem;
+    }
+    h2 {
+      font-family: 'Lora', Georgia, serif;
+      font-size: clamp(1.7rem, 4vw, 2.5rem);
+      line-height: 1.2; letter-spacing: -0.02em; color: var(--white);
+      margin-bottom: 1rem;
+    }
+    .lead {
+      font-size: 1rem; color: var(--text-dim); max-width: 580px;
+      line-height: 1.8; margin-bottom: 2rem;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 90vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 7rem 2rem 5rem;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(56,189,248,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(56,189,248,0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse at 60% 40%, black 20%, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse at 60% 40%, black 20%, transparent 75%);
+    }
+    .hero-inner { max-width: 820px; margin: 0 auto; position: relative; z-index: 1; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.14em; color: var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      background: rgba(56, 189, 248, 0.08);
+      padding: 4px 12px; border-radius: 20px; margin-bottom: 1.5rem;
+    }
+    .hero-eyebrow::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent); animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    .hero h1 {
+      font-family: 'Lora', Georgia, serif;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      line-height: 1.1; letter-spacing: -0.02em;
+      color: var(--white); margin-bottom: 1.25rem;
+    }
+    .hero h1 em { color: var(--accent); font-style: normal; }
+    .hero-sub {
+      font-size: 1.1rem; color: var(--text-dim); max-width: 560px;
+      line-height: 1.75; margin-bottom: 2rem; font-weight: 300;
+    }
+    .hero-sub strong { color: var(--white); font-weight: 500; }
+    .hero-actions { display: flex; gap: 0.85rem; flex-wrap: wrap; align-items: center; }
+    .hero-note {
+      margin-top: 1.25rem; font-size: 0.72rem; color: var(--text-dim);
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+
+    /* WHAT IS IT */
+    #what {
+      background: rgba(30, 41, 59, 0.4);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .philosophy-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem;
+    }
+    .philo-card {
+      padding: 1.5rem; border: 1px solid var(--border);
+      border-radius: var(--radius); background: rgba(15, 23, 42, 0.6);
+    }
+    .philo-card.accent { border-left: 3px solid var(--accent); }
+    .philo-card h3 {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 1rem; color: var(--white); margin-bottom: 0.5rem;
+    }
+    .philo-card p { font-size: 0.85rem; color: var(--text-dim); line-height: 1.7; }
+
+    /* FEATURES */
+    #features { border-bottom: 1px solid var(--border); }
+    .features-list { display: flex; flex-direction: column; gap: 2.5rem; margin-top: 2rem; }
+    .feature {
+      display: grid; grid-template-columns: 56px 1fr; gap: 1.25rem; align-items: start;
+    }
+    .feature-icon {
+      width: 48px; height: 48px; border-radius: 0.65rem;
+      background: var(--accent-l); border: 1px solid rgba(56, 189, 248, 0.25);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; flex-shrink: 0;
+    }
+    .feature h3 { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 0.35rem; }
+    .feature p  { font-size: 0.85rem; color: var(--text-dim); line-height: 1.7; }
+    .feature-note {
+      display: inline-block; margin-top: 0.4rem;
+      font-size: 0.7rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.07em; color: var(--accent); background: var(--accent-l);
+      padding: 2px 8px; border-radius: 8px; border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+
+    /* HOW IT WORKS */
+    #how {
+      background: rgba(30, 41, 59, 0.4);
+      border-bottom: 1px solid var(--border);
+    }
+    .steps { display: flex; flex-direction: column; position: relative; margin-top: 2rem; }
+    .steps::before {
+      content: ''; position: absolute; left: 18px; top: 36px; bottom: 36px;
+      width: 1px; background: linear-gradient(to bottom, var(--accent), transparent);
+    }
+    .step {
+      display: grid; grid-template-columns: 40px 1fr; gap: 1rem;
+      align-items: start; padding-bottom: 2rem; position: relative;
+    }
+    .step-num {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--accent); color: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.78rem; font-weight: 800; flex-shrink: 0; position: relative; z-index: 1;
+    }
+    .step h3 { font-size: 0.95rem; font-weight: 700; color: var(--white); margin-bottom: 0.3rem; margin-top: 6px; }
+    .step p  { font-size: 0.83rem; color: var(--text-dim); line-height: 1.65; }
+    .step code {
+      display: inline-block; margin-top: 0.4rem;
+      font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.77rem;
+      background: rgba(255,255,255,0.05); color: var(--accent);
+      padding: 0.35rem 0.75rem; border-radius: 5px; border: 1px solid var(--border);
+    }
+
+    /* AI PHILOSOPHY */
+    #philosophy { border-bottom: 1px solid var(--border); }
+    blockquote {
+      border-left: 3px solid var(--accent);
+      padding: 1rem 1.5rem;
+      background: rgba(56, 189, 248, 0.05);
+      border-radius: 0 0.5rem 0.5rem 0;
+      margin: 1.5rem 0;
+    }
+    blockquote p {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 1.1rem; color: var(--white); font-style: italic; line-height: 1.55;
+    }
+    blockquote cite {
+      font-size: 0.72rem; color: var(--text-dim); font-style: normal;
+      display: block; margin-top: 0.5rem;
+    }
+    .provider-row { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem; }
+    .provider-chip {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.5rem 1rem; border: 1px solid var(--border);
+      border-radius: 0.5rem; background: var(--accent-l);
+      font-size: 0.8rem; color: var(--text-dim);
+    }
+    .provider-chip strong { color: var(--white); }
+
+    /* CREATOR */
+    #creator {
+      background: rgba(30, 41, 59, 0.4);
+      border-bottom: 1px solid var(--border);
+    }
+    .creator-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;
+    }
+    .creator-bio { font-size: 0.88rem; color: var(--text-dim); line-height: 1.8; }
+    .creator-bio strong { color: var(--white); }
+    .creator-bio p { margin-bottom: 0.75rem; }
+    .creator-links { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem; }
+    .creator-link {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.8rem; color: var(--accent); text-decoration: none;
+      transition: opacity 0.15s;
+    }
+    .creator-link:hover { opacity: 0.75; }
+    .paper-notice {
+      padding: 1.25rem 1.5rem;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: var(--radius);
+      background: var(--accent-l);
+    }
+    .paper-notice h4 { font-size: 0.85rem; font-weight: 700; color: var(--accent); margin-bottom: 0.4rem; }
+    .paper-notice p  { font-size: 0.8rem; color: var(--text-dim); line-height: 1.65; }
+
+    /* CTA */
+    #cta { text-align: center; padding: 6rem 2rem; }
+    #cta h2 { margin-bottom: 0.75rem; }
+    #cta p {
+      color: var(--text-dim); font-size: 0.95rem; margin-bottom: 2rem;
+      max-width: 440px; margin-left: auto; margin-right: auto;
+    }
+    .cta-actions { display: flex; gap: 0.85rem; justify-content: center; flex-wrap: wrap; }
+    .ko-fi-note { margin-top: 1.5rem; font-size: 0.75rem; color: var(--text-dim); }
+    .ko-fi-note a { color: var(--accent); text-decoration: none; }
+    .ko-fi-note a:hover { text-decoration: underline; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 2rem; background: rgba(15, 23, 42, 0.9);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    footer p { font-size: 0.72rem; color: var(--text-dim); }
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* RESPONSIVE */
+    @media (max-width: 700px) {
+      .philosophy-grid, .creator-grid { grid-template-columns: 1fr; }
+      .feature { grid-template-columns: 44px 1fr; }
+      nav { padding: 0 1rem; }
+      section { padding: 3.5rem 1rem; }
+      .hero { padding: 5rem 1rem 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="litflow-page.html">Lit<span>Flow</span></a>
+  <a class="nav-back" href="index.html">← The Neuro-Humanist</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">New · Free · Open Source</div>
+    <h1>Read more.<br><em>Forget less.</em><br>Think deeper.</h1>
+    <p class="hero-sub">
+      A structured literature tracker built for graduate students and researchers.
+      <strong>You do the reading. You do the thinking.</strong>
+      LitFlow handles the organization — and lets AI synthesize your notes, not replace them.
+    </p>
+    <div class="hero-actions">
+      <a href="litflow.html" download class="btn-primary">
+        <i class="fas fa-download"></i> Download LitFlow
+      </a>
+      <a href="#how" class="btn-ghost">See how it works</a>
+      <a href="https://ko-fi.com" target="_blank" class="btn-ghost">☕ Support this work</a>
+    </div>
+    <p class="hero-note">
+      <i class="fas fa-lock" style="font-size:0.7rem"></i>
+      Single HTML file. No account. No server. Your data never leaves your machine.
+    </p>
+  </div>
+</section>
+
+<!-- WHAT IS IT -->
+<section id="what">
+  <div class="inner">
+    <div class="section-label">The Problem</div>
+    <h2>Literature review is a slog.<br>It doesn't have to be.</h2>
+    <p class="lead">Most PhD students read sporadically, take notes inconsistently, and spend hours reconstructing what a paper said when it's time to write. AI tools promise to help — but end up doing the reading for you, which defeats the point.</p>
+
+    <div class="philosophy-grid">
+      <div class="philo-card accent">
+        <h3>The reading habit that compounds</h3>
+        <p>One paper per day. Six structured note fields. A streak counter that makes consistency feel earned. At 365 papers a year, you will outpace most faculty in breadth — without sacrificing depth.</p>
+      </div>
+      <div class="philo-card">
+        <h3>AI as retrieval, not replacement</h3>
+        <p>LitFlow's synthesis feature works only from your notes — it is explicitly instructed not to add information from its training data. The AI surfaces what you already captured. The thinking remains yours.</p>
+      </div>
+      <div class="philo-card">
+        <h3>Your data, your machine</h3>
+        <p>LitFlow is a single HTML file. It runs in your browser, stores everything in localStorage, and works offline. No account, no server, no company holding your literature database hostage.</p>
+      </div>
+      <div class="philo-card">
+        <h3>Built by a researcher, for researchers</h3>
+        <p>This came out of a real PhD workflow — MUSC Systems Neuroscience, multimodal behavioral phenotyping, the kind of lit review that spans five fields simultaneously. It solves the problem I actually had.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="inner">
+    <div class="section-label">Features</div>
+    <h2>Everything in one file.</h2>
+
+    <div class="features-list">
+      <div class="feature">
+        <div class="feature-icon">📚</div>
+        <div>
+          <h3>Structured note fields — six, not sixty</h3>
+          <p>Every paper gets the same six fields: Study Design, Key Methods, Main Findings, Relevance to Your Project, Open Questions, and Notes. Consistent structure makes your notes actually useful when you write — and makes AI synthesis dramatically more reliable than unstructured prose.</p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">🗂️</div>
+        <div>
+          <h3>Custom reading tracks</h3>
+          <p>Define your own literature domains — give each a name and a color. Papers can be filtered, sorted, and synthesized by track. Useful whether you're building depth in one field or managing the five-literature problem that most interdisciplinary PhD students face.</p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">✦</div>
+        <div>
+          <h3>LLM synthesis — from your notes only</h3>
+          <p>Select a track and a synthesis mode: draft literature review section, gap analysis, methods summary, key findings table, or a custom prompt. The prompt engineering is built in — every synthesis call instructs the model to work only from your captured notes, not from its training data. Your API key goes directly to your chosen provider; it never touches any server.</p>
+          <span class="feature-note">Claude · OpenAI · Local LLMs (Ollama, LM Studio)</span>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">📎</div>
+        <div>
+          <h3>Quick-add from inside any paper</h3>
+          <p>While reading and taking notes, paste a title, DOI, or URL into the "Additional Readings" field and hit Enter. The paper is instantly added to your library as Unassigned / To Read — no navigation, no interruption. DOIs auto-resolve to title and citation via CrossRef.</p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">🔥</div>
+        <div>
+          <h3>Streak tracking and progress visibility</h3>
+          <p>A day streak counter, per-track progress bars, and a progress line across the top of the page that fills as you complete papers. Small things, but consistency needs feedback loops — especially in the long middle of a PhD where progress is invisible.</p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">📤</div>
+        <div>
+          <h3>Export to JSON and Markdown</h3>
+          <p>Back up your entire library as JSON (re-importable) or export completed notes as formatted Markdown — ready to drop into Obsidian, Notion, a dissertation chapter, or a grant application. The Markdown export is the bridge between your reading habit and your writing.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="inner">
+    <div class="section-label">Getting Started</div>
+    <h2>Up and running<br>in under five minutes.</h2>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <h3>Download the file</h3>
+          <p>Click "Download LitFlow" above. You get a single <code>litflow.html</code> file — no install, no dependencies, no build step.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <h3>Open it in your browser</h3>
+          <p>Double-click the file or drag it into Chrome, Safari, or Firefox. All data is saved automatically in your browser's local storage — close and reopen anytime, your notes are still there.</p>
+          <code>File → Open → litflow.html</code>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <h3>Set up your tracks</h3>
+          <p>Go to ⚙ Settings and define your reading tracks — the literature domains your project spans. Name them, pick a color. This takes two minutes and shapes everything else.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div>
+          <h3>Add your first paper and start reading</h3>
+          <p>Click "+ Add Paper," fill in the title and link, assign a track. Then open it, take notes in the six fields, and mark it done. That's the daily loop. One paper. Every day.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div>
+          <h3>(Optional) Add an API key for AI synthesis</h3>
+          <p>In Settings, pick a provider — Claude, OpenAI, or a local model running on your machine. Enter your API key. It's stored only in your browser, sent only to the API you chose. Once set, the ✦ Synthesize tab turns your completed notes into draft literature review sections, gap analyses, and more.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI PHILOSOPHY -->
+<section id="philosophy">
+  <div class="inner">
+    <div class="section-label">Design Philosophy</div>
+    <h2>AI should make you<br>smarter, not lazier.</h2>
+
+    <blockquote>
+      <p>"The goal was never to automate the reading. The goal was to remove every friction point that makes the reading feel impossible on a Tuesday morning before clinic."</p>
+      <cite>— Mike Martino, MD/PhD candidate, MUSC</cite>
+    </blockquote>
+
+    <p class="lead">Every synthesis prompt in LitFlow contains an explicit instruction: <em>work only from the researcher's notes — do not add information from training data.</em> This is a deliberate design choice, not a limitation.</p>
+
+    <p style="color:var(--text-dim);font-size:0.88rem;line-height:1.75;max-width:600px;margin-bottom:1.5rem">The cognitive work of reading a paper — deciding what matters, connecting it to what you know, noticing what's missing — is where expertise is built. LitFlow keeps that work firmly with you. The AI's job is retrieval and synthesis of what you've already processed, not a shortcut around the processing itself.</p>
+
+    <div class="provider-row">
+      <div class="provider-chip"><strong>🤖 Claude</strong> (Anthropic)</div>
+      <div class="provider-chip"><strong>💬 GPT-4o</strong> (OpenAI)</div>
+      <div class="provider-chip"><strong>🏠 Ollama</strong> (local)</div>
+      <div class="provider-chip"><strong>🏠 LM Studio</strong> (local)</div>
+      <div class="provider-chip"><strong>+ any</strong> OpenAI-compatible endpoint</div>
+    </div>
+  </div>
+</section>
+
+<!-- CREATOR -->
+<section id="creator">
+  <div class="inner">
+    <div class="section-label">About</div>
+    <div class="creator-grid">
+      <div class="creator-bio">
+        <p><strong>Mike Martino</strong> is an MD/PhD candidate in Systems Neuroscience at the Medical University of South Carolina. His research spans fear sensitization, computational psychiatry, and multimodal behavioral phenotyping — which means he has to maintain a reading habit across five literatures simultaneously.</p>
+        <p>LitFlow grew out of the FIXATE project — a pipeline for extracting acoustic, kinematic, and facial behavioral features from naturalistic clinical video. The same frustration that drove that pipeline (too many good ideas, too little organized knowledge) drove this tool.</p>
+        <p>He believes researchers shouldn't have to choose between using AI tools and developing genuine expertise. LitFlow is his attempt to prove you don't have to.</p>
+        <div class="creator-links">
+          <a class="creator-link" href="index.html">↗ The Neuro-Humanist</a>
+          <a class="creator-link" href="https://scholar.google.com/citations?user=5MRDDRYAAAAJ&hl=en" target="_blank">↗ Google Scholar</a>
+          <a class="creator-link" href="https://ko-fi.com" target="_blank">☕ Support on Ko-fi</a>
+        </div>
+      </div>
+      <div class="paper-notice">
+        <h4>📄 A paper is coming</h4>
+        <p>LitFlow is planned for submission to the Journal of Open Source Software (JOSS) alongside a methods paper on structured AI-assisted literature review in graduate science education. If you use this tool and would be willing to participate in a brief survey study, keep an eye on The Neuro-Humanist for updates.</p>
+        <p style="margin-top:0.65rem">If LitFlow has been useful to your research, a citation will eventually be possible — and deeply appreciated.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="section-label" style="text-align:center">Free &amp; Open Source</div>
+  <h2>Start reading today.</h2>
+  <p>One file. No account. No server. Works offline. Your notes stay yours.</p>
+  <div class="cta-actions">
+    <a href="litflow.html" download class="btn-primary">
+      <i class="fas fa-download"></i> Download LitFlow
+    </a>
+    <a href="https://github.com/mmartino1440/LitFlow" target="_blank" class="btn-ghost">
+      <i class="fab fa-github"></i> GitHub
+    </a>
+    <a href="https://ko-fi.com" target="_blank" class="btn-ghost">☕ Buy me a coffee</a>
+  </div>
+  <p class="ko-fi-note">
+    LitFlow is and will always be free. If it saves you time, <a href="https://ko-fi.com" target="_blank">a coffee is appreciated</a> and helps fund future tools.
+  </p>
+</section>
+
+<footer>
+  <p>LitFlow · Built by <a href="index.html">Mike Martino, MD/PhD</a> · MUSC Systems Neuroscience · 2026</p>
+  <p>
+    <a href="litflow.html" download>Download</a> &nbsp;·&nbsp;
+    <a href="https://github.com/mmartino1440/LitFlow" target="_blank">GitHub</a> &nbsp;·&nbsp;
+    <a href="https://ko-fi.com" target="_blank">Ko-fi</a>
+  </p>
+</footer>
+
+</body>
+</html>
