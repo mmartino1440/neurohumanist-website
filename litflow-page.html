@@ -360,7 +360,7 @@
       </div>
       <div class="philo-card">
         <h3>Your data, your machine</h3>
-        <p>LitFlow is a single HTML file. It runs in your browser, stores everything in localStorage, and works offline. No account, no server, no company holding your literature database hostage.</p>
+        <p>LitFlow is a single HTML file. It runs in your browser, stores everything locally, and works offline. In Chrome or Edge, you can connect a data file on your hard drive — your library persists even if you clear browser data. No account, no server, no company holding your literature database hostage.</p>
       </div>
       <div class="philo-card">
         <h3>Built by a researcher, for researchers</h3>
@@ -425,6 +425,15 @@
           <p>Back up your entire library as JSON (re-importable) or export completed notes as formatted Markdown — ready to drop into Obsidian, Notion, a dissertation chapter, or a grant application. The Markdown export is the bridge between your reading habit and your writing.</p>
         </div>
       </div>
+
+      <div class="feature">
+        <div class="feature-icon">💾</div>
+        <div>
+          <h3>Disk persistence — survive browser clears</h3>
+          <p>In Chrome or Edge, go to ⚙ Settings → Data → Connect data file. LitFlow links to a <code>.json</code> file on your hard drive and writes every save directly to it. Clear cookies, reinstall the browser, switch computers — your library is still in the file. Firefox and Safari users keep the standard behavior with regular JSON export as backup.</p>
+          <span class="feature-note">Chrome · Edge 86+</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -447,10 +456,21 @@
         <div class="step-num">2</div>
         <div>
           <h3>Open it in your browser</h3>
-          <p>Double-click the file or drag it into Chrome, Safari, or Firefox. All data is saved automatically in your browser's local storage — close and reopen anytime, your notes are still there.</p>
+          <p>Double-click the file or drag it into Chrome, Edge, Safari, or Firefox. All data is saved automatically in your browser's local storage — close and reopen anytime, your notes are still there.</p>
           <code>File → Open → litflow.html</code>
         </div>
       </div>
+
+      <!-- Data safety warning -->
+      <div style="margin:0 0 2rem 3.25rem;padding:1rem 1.25rem;background:rgba(56,189,248,0.05);border:1px solid rgba(56,189,248,0.25);border-left:3px solid var(--accent);border-radius:0 0.5rem 0.5rem 0">
+        <p style="font-size:0.82rem;font-weight:700;color:var(--accent);margin-bottom:0.5rem">⚠️ Protect your library — don't rely on the browser alone.</p>
+        <p style="font-size:0.82rem;color:var(--text-dim);margin-bottom:0.6rem;line-height:1.65">LitFlow stores your notes in your browser's local storage by default. <strong style="color:var(--white)">Clearing "cookies and site data" or resetting your browser will permanently delete everything.</strong> Do one or both of the following:</p>
+        <ul style="font-size:0.82rem;color:var(--text-dim);line-height:1.75;padding-left:1.1rem">
+          <li><strong style="color:var(--white)">Chrome or Edge users:</strong> Go to ⚙ Settings → Data → <strong style="color:var(--accent)">Connect data file</strong> to link a <code style="font-family:monospace;font-size:0.78rem;background:rgba(255,255,255,0.05);color:var(--accent);padding:1px 5px;border-radius:3px">.json</code> file on your hard drive. Every save writes to disk — your library survives any browser wipe.</li>
+          <li style="margin-top:0.3rem"><strong style="color:var(--white)">All browsers (Firefox, Safari, etc.):</strong> Regularly use <strong style="color:var(--accent)">Export JSON backup</strong> in Settings → Data to download a copy of your library. Re-import it anytime.</li>
+        </ul>
+      </div>
+
       <div class="step">
         <div class="step-num">3</div>
         <div>
@@ -520,6 +540,34 @@
         <h4>📄 A paper is coming</h4>
         <p>LitFlow is planned for submission to the Journal of Open Source Software (JOSS) alongside a methods paper on structured AI-assisted literature review in graduate science education. If you use this tool and would be willing to participate in a brief survey study, keep an eye on The Neuro-Humanist for updates.</p>
         <p style="margin-top:0.65rem">If LitFlow has been useful to your research, a citation will eventually be possible — and deeply appreciated.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHANGELOG -->
+<section id="changelog" style="background:rgba(30,41,59,0.4);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="inner">
+    <div class="section-label">Release History</div>
+    <h2>Changelog</h2>
+    <div style="display:flex;flex-direction:column;gap:1.5rem;margin-top:1.5rem">
+      <div style="border-left:3px solid var(--accent);padding-left:1.25rem">
+        <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:0.35rem">v1.6 — June 2026</div>
+        <ul style="font-size:0.85rem;color:var(--text-dim);line-height:1.8;padding-left:1.1rem">
+          <li>Disk persistence via File System Access API — connect a data file in Chrome/Edge that survives clearing browser storage</li>
+          <li>Fixed quick-add to library bug (Enter key and Add button were non-functional)</li>
+          <li>Settings now explains that Claude Pro / ChatGPT Plus don't include API access, with Ollama highlighted as a free local alternative</li>
+          <li>Data safety warning added to Getting Started</li>
+        </ul>
+      </div>
+      <div style="border-left:3px solid var(--border);padding-left:1.25rem">
+        <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-dim);margin-bottom:0.35rem">v1.5 — Initial public release</div>
+        <ul style="font-size:0.85rem;color:var(--text-dim);line-height:1.8;padding-left:1.1rem">
+          <li>Six structured note fields, custom reading tracks, streak tracking</li>
+          <li>LLM synthesis (Claude, OpenAI, Ollama, LM Studio)</li>
+          <li>Quick-add by title, DOI, or URL with CrossRef auto-resolution</li>
+          <li>JSON and Markdown export</li>
+        </ul>
       </div>
     </div>
   </div>
