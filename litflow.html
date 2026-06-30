@@ -584,6 +584,7 @@ header {
         <select class="filter-sel" id="fStatus" onchange="renderAll()">
           <option value="all">All Status</option>
           <option value="done">Done</option>
+          <option value="cited">Cited</option>
           <option value="reading">Reading</option>
           <option value="todo">To Read</option>
           <option value="skip">Skip</option>
@@ -769,7 +770,8 @@ header {
             <span style="display:block;margin-top:0.35rem;padding-left:0.5rem">
               1. Install Ollama from <a href="https://ollama.com" target="_blank" style="color:#4ade80">ollama.com</a><br>
               2. In a terminal: <code style="background:#0a3d1f;padding:1px 5px;border-radius:3px;font-size:0.72rem">ollama pull llama3</code> (or <code style="background:#0a3d1f;padding:1px 5px;border-radius:3px;font-size:0.72rem">mistral</code>, <code style="background:#0a3d1f;padding:1px 5px;border-radius:3px;font-size:0.72rem">phi3</code>, etc.)<br>
-              3. Select <strong>Local (Ollama)</strong> below — Base URL defaults to <code style="background:#0a3d1f;padding:1px 5px;border-radius:3px;font-size:0.72rem">http://localhost:11434/v1</code>, model = <code style="background:#0a3d1f;padding:1px 5px;border-radius:3px;font-size:0.72rem">llama3</code>
+              3. Select <strong>Local (Ollama)</strong> below — Base URL defaults to <code style="background:#0a3d1f;padding:1px 5px;border-radius:3px;font-size:0.72rem">http://localhost:11434/v1</code><br>
+              4. <strong>Model name must match exactly what's running on that address</strong> — open <a href="http://localhost:11434/api/tags" target="_blank" style="color:#4ade80">localhost:11434/api/tags</a> in a new tab and copy a <code style="background:#0a3d1f;padding:1px 5px;border-radius:3px;font-size:0.72rem">"name"</code> value from the list into the Model field. (Don't trust <code style="background:#0a3d1f;padding:1px 5px;border-radius:3px;font-size:0.72rem">ollama list</code> in a terminal for this — if you also have Ollama running inside WSL/Docker, the terminal command and your browser can reach <em>different</em> Ollama servers and show different model lists.)
             </span>
           </div>
           <div style="background:#1e1a00;border:1px solid #d97706;border-radius:6px;padding:0.6rem 0.85rem;margin-bottom:0.75rem;font-size:0.75rem;color:#fbbf24;line-height:1.5">
@@ -847,6 +849,7 @@ header {
               <option value="todo">To Read</option>
               <option value="reading">In Progress</option>
               <option value="done">Done</option>
+              <option value="cited">Cited</option>
               <option value="skip">Skip / Reference only</option>
             </select>
           </div>
@@ -913,6 +916,7 @@ const DEFAULT_SETTINGS = {
   apiKey: '',
   baseUrl: 'http://localhost:11434/v1',
   model: 'claude-sonnet-4-6',
+  modelByProvider: { anthropic: 'claude-sonnet-4-6', openai: 'gpt-4o', local: 'llama3' },
 };
 
 // ─────────────────────────────────────────
@@ -960,7 +964,8 @@ async function load() {
   // Always load from localStorage first (instant, no async required)
   papers   = JSON.parse(localStorage.getItem(`lf_${NS}_papers`)  || '[]');
   tracks   = JSON.parse(localStorage.getItem(`lf_${NS}_tracks`)  || JSON.stringify(DEFAULT_TRACKS));
-  settings = JSON.parse(localStorage.getItem(`lf_${NS}_settings`)|| JSON.stringify(DEFAULT_SETTINGS));
+  settings = { ...DEFAULT_SETTINGS, ...JSON.parse(localStorage.getItem(`lf_${NS}_settings`) || JSON.stringify(DEFAULT_SETTINGS)) };
+  settings.modelByProvider = { ...DEFAULT_SETTINGS.modelByProvider, ...(settings.modelByProvider || {}) };
   if (!tracks.find(t => t.id === 'unassigned')) tracks.unshift(UNASSIGNED_TRACK);
 
   if (!fileSystemSupported) return;
@@ -976,7 +981,10 @@ async function load() {
         tracks = d.tracks.filter(t => t.id !== 'unassigned');
         if (!tracks.find(t => t.id === 'unassigned')) tracks.unshift(UNASSIGNED_TRACK);
       }
-      if (d.settings) settings = { ...DEFAULT_SETTINGS, ...d.settings };
+      if (d.settings) {
+        settings = { ...DEFAULT_SETTINGS, ...d.settings };
+        settings.modelByProvider = { ...DEFAULT_SETTINGS.modelByProvider, ...(d.settings.modelByProvider || {}) };
+      }
       fileHandle = storedHandle;
     } else {
       fileHandle = storedHandle;
@@ -1089,7 +1097,10 @@ async function reconnectFile() {
       tracks = d.tracks.filter(t => t.id !== 'unassigned');
       if (!tracks.find(t => t.id === 'unassigned')) tracks.unshift(UNASSIGNED_TRACK);
     }
-    if (d.settings) settings = { ...DEFAULT_SETTINGS, ...d.settings };
+    if (d.settings) {
+      settings = { ...DEFAULT_SETTINGS, ...d.settings };
+      settings.modelByProvider = { ...DEFAULT_SETTINGS.modelByProvider, ...(d.settings.modelByProvider || {}) };
+    }
     pendingReconnect = false;
     updateFileStatusUI();
     renderTrackSelects(); updateHeader(); updateSidebar(); showView(currentView);
@@ -1411,6 +1422,7 @@ function expandContent(p) {
           <option value="todo" ${p.status==='todo'?'selected':''}>To Read</option>
           <option value="reading" ${p.status==='reading'?'selected':''}>Reading</option>
           <option value="done" ${p.status==='done'?'selected':''}>Done</option>
+          <option value="cited" ${p.status==='cited'?'selected':''}>Cited</option>
           <option value="skip" ${p.status==='skip'?'selected':''}>Skip / exclude from synthesis</option>
         </select>
       </div>
@@ -1539,12 +1551,21 @@ function renderTrackSelects() {
 }
 
 function selectProvider(p, save_=true) {
+  if (save_) {
+    // Remember the model the user had typed for whichever provider they're leaving,
+    // so switching providers doesn't send e.g. "claude-sonnet-4-6" to Ollama.
+    const prevModel = document.getElementById('set-model').value.trim();
+    if (prevModel) settings.modelByProvider[settings.provider] = prevModel;
+  }
   settings.provider = p;
   document.querySelectorAll('.provider-btn').forEach(b => b.classList.toggle('selected', b.dataset.p === p));
   const isLocal = p === 'local';
   document.getElementById('apiKeyRow').style.display  = isLocal ? 'none' : '';
   document.getElementById('baseUrlRow').style.display = isLocal ? '' : 'none';
-  if (save_) saveSettings();
+  if (save_) {
+    document.getElementById('set-model').value = settings.modelByProvider[p] || '';
+    saveSettings();
+  }
 }
 
 function saveSettings() {
@@ -1553,6 +1574,7 @@ function saveSettings() {
   settings.apiKey   = document.getElementById('set-apikey').value.trim();
   settings.baseUrl  = document.getElementById('set-baseurl').value.trim();
   settings.model    = document.getElementById('set-model').value.trim();
+  if (settings.model) settings.modelByProvider[settings.provider] = settings.model;
   save();
   document.getElementById('saveMsg').textContent = 'Saved ✓';
   setTimeout(() => document.getElementById('saveMsg').textContent = '', 2000);
@@ -1587,6 +1609,7 @@ function addPaper() {
     questions: document.getElementById('n-questions').value.trim(),
     notes:     document.getElementById('n-notes').value.trim(),
     dateCompleted: '',
+    tags: [],
   });
   save(); updateHeader(); updateSidebar();
   ['title','link','citation','design','methods','findings','relevance','questions','notes'].forEach(f => {
