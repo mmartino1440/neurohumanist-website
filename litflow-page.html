@@ -552,7 +552,16 @@
     <h2>Changelog</h2>
     <div style="display:flex;flex-direction:column;gap:1.5rem;margin-top:1.5rem">
       <div style="border-left:3px solid var(--accent);padding-left:1.25rem">
-        <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:0.35rem">v1.6 — June 2026</div>
+        <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:0.35rem">v1.7 — June 30, 2026</div>
+        <ul style="font-size:0.85rem;color:var(--text-dim);line-height:1.8;padding-left:1.1rem">
+          <li><strong style="color:var(--white)">Multi-Agent Consensus</strong> — run the same synthesis prompt 2–3 times independently, then either merge into a consensus or display responses side by side for comparison</li>
+          <li><strong style="color:var(--white)">Batch + Condense</strong> — splits your library into configurable chunks (3–10 papers), summarizes each batch independently, then condenses all summaries into a final synthesis — handles large libraries without hitting token limits in a single call</li>
+          <li>Dynamic token cost estimate shown before running any multi-step job, with Ollama recommended for large libraries to avoid API charges</li>
+          <li>Card expand bug fixed — papers in the All Papers view now expand and collapse correctly (duplicate DOM ID issue when the same paper appeared in both Up Next and the main list)</li>
+        </ul>
+      </div>
+      <div style="border-left:3px solid var(--border);padding-left:1.25rem">
+        <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-dim);margin-bottom:0.35rem">v1.6 — June 2026</div>
         <ul style="font-size:0.85rem;color:var(--text-dim);line-height:1.8;padding-left:1.1rem">
           <li>Disk persistence via File System Access API — connect a data file in Chrome/Edge that survives clearing browser storage</li>
           <li>Fixed quick-add to library bug (Enter key and Add button were non-functional)</li>
