@@ -552,7 +552,15 @@
     <h2>Changelog</h2>
     <div style="display:flex;flex-direction:column;gap:1.5rem;margin-top:1.5rem">
       <div style="border-left:3px solid var(--accent);padding-left:1.25rem">
-        <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:0.35rem">v1.7 — June 30, 2026</div>
+        <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:0.35rem">v1.8 — July 2, 2026</div>
+        <ul style="font-size:0.85rem;color:var(--text-dim);line-height:1.8;padding-left:1.1rem">
+          <li><strong style="color:var(--white)">Configurable synthesis token limits</strong> — Settings now lets you set the max output tokens for synthesis, with a per-model reference table (context window, max output ceiling) and Consensus-merge-specific guidance. Fixes a bug where output was silently capped at 1,500 tokens for every model and method, which could truncate longer syntheses mid-sentence</li>
+          <li><strong style="color:var(--white)">Citation export</strong> — one-click RIS and BibTeX export for your whole library, plus a per-paper "Cite" button</li>
+          <li>Fixed: the Model field in Settings now correctly remembers a separate value per provider, so switching to a local Ollama model no longer risks sending it a Claude model string (or vice versa)</li>
+        </ul>
+      </div>
+      <div style="border-left:3px solid var(--border);padding-left:1.25rem">
+        <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-dim);margin-bottom:0.35rem">v1.7 — June 30, 2026</div>
         <ul style="font-size:0.85rem;color:var(--text-dim);line-height:1.8;padding-left:1.1rem">
           <li><strong style="color:var(--white)">Multi-Agent Consensus</strong> — run the same synthesis prompt 2–3 times independently, then either merge into a consensus or display responses side by side for comparison</li>
           <li><strong style="color:var(--white)">Batch + Condense</strong> — splits your library into configurable chunks (3–10 papers), summarizes each batch independently, then condenses all summaries into a final synthesis — handles large libraries without hitting token limits in a single call</li>
