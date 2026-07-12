@@ -552,7 +552,23 @@
     <h2>Changelog</h2>
     <div style="display:flex;flex-direction:column;gap:1.5rem;margin-top:1.5rem">
       <div style="border-left:3px solid var(--accent);padding-left:1.25rem">
-        <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:0.35rem">v1.8 — July 2, 2026</div>
+        <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:0.35rem">v1.9 — July 12, 2026</div>
+        <ul style="font-size:0.85rem;color:var(--text-dim);line-height:1.8;padding-left:1.1rem">
+          <li><strong style="color:var(--white)">Alphabetical by default</strong> — the All Papers list now sorts alphabetically by title (case-insensitive) after any filters/search are applied, on top of the existing track/status/type filters and author/keyword search</li>
+          <li><strong style="color:var(--white)">Edit a paper's title</strong> — fix a typo or placeholder title without deleting and re-adding the paper. New Title field at the top of each paper's expand panel, right where every other field (Citation, Link, Notes, etc.) already lives</li>
+        </ul>
+      </div>
+      <div style="border-left:3px solid var(--border);padding-left:1.25rem">
+        <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-dim);margin-bottom:0.35rem">v1.8.1 — July 8, 2026</div>
+        <ul style="font-size:0.85rem;color:var(--text-dim);line-height:1.8;padding-left:1.1rem">
+          <li><strong style="color:var(--white)">Fixed a data-loss bug</strong> — reconnecting a data file (or reopening LitFlow with one already connected) could silently overwrite newer unsaved local changes with an older version from disk. There was no warning and no way back</li>
+          <li><strong style="color:var(--white)">Conflict detection</strong> — reconnecting now compares timestamps, and if your local session has changes the file on disk doesn't, you're prompted to choose which version to keep instead of losing anything automatically</li>
+          <li><strong style="color:var(--white)">Automatic recovery snapshot</strong> — before any wholesale overwrite (conflict resolution, JSON import, reset), your prior data is saved to a recovery slot. A "Restore previous session" option now appears in Settings → Data whenever there's something to recover</li>
+          <li>Import confirmation — importing a JSON backup now asks before replacing your existing library instead of doing it immediately</li>
+        </ul>
+      </div>
+      <div style="border-left:3px solid var(--border);padding-left:1.25rem">
+        <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-dim);margin-bottom:0.35rem">v1.8 — July 2, 2026</div>
         <ul style="font-size:0.85rem;color:var(--text-dim);line-height:1.8;padding-left:1.1rem">
           <li><strong style="color:var(--white)">Configurable synthesis token limits</strong> — Settings now lets you set the max output tokens for synthesis, with a per-model reference table (context window, max output ceiling) and Consensus-merge-specific guidance. Fixes a bug where output was silently capped at 1,500 tokens for every model and method, which could truncate longer syntheses mid-sentence</li>
           <li><strong style="color:var(--white)">Citation export</strong> — one-click RIS and BibTeX export for your whole library, plus a per-paper "Cite" button</li>
